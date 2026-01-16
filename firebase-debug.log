@@ -1,0 +1,325 @@
+[debug] [2026-01-15T15:29:05.164Z] ----------------------------------------------------------------------
+[debug] [2026-01-15T15:29:05.175Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Administrator\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy
+[debug] [2026-01-15T15:29:05.177Z] CLI Version:   14.14.0
+[debug] [2026-01-15T15:29:05.177Z] Platform:      win32
+[debug] [2026-01-15T15:29:05.177Z] Node Version:  v20.19.6
+[debug] [2026-01-15T15:29:05.178Z] Time:          Thu Jan 15 2026 16:29:05 GMT+0100 (West Africa Standard Time)
+[debug] [2026-01-15T15:29:05.178Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2026-01-15T15:29:05.185Z] >>> [apiv2][query] GET https://firebase-public.firebaseio.com/cli.json [none]
+[debug] [2026-01-15T15:29:06.075Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-01-15T15:29:06.076Z] > authorizing via signed-in user (gvanherck41@gmail.com)
+[debug] [2026-01-15T15:29:06.077Z] [iam] checking project oja-place01 for permissions ["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get","firebasehosting.sites.update","firebaserules.releases.create","firebaserules.releases.update","firebaserules.rulesets.create"]
+[debug] [2026-01-15T15:29:06.079Z] Checked if tokens are valid: false, expires at: 1768194449911
+[debug] [2026-01-15T15:29:06.080Z] Checked if tokens are valid: false, expires at: 1768194449911
+[debug] [2026-01-15T15:29:06.081Z] > refreshing access token with scopes: []
+[debug] [2026-01-15T15:29:06.086Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2026-01-15T15:29:06.086Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2026-01-15T15:29:19.509Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2026-01-15T15:29:19.510Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2026-01-15T15:29:19.536Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/oja-place01:testIamPermissions [none]
+[debug] [2026-01-15T15:29:19.536Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/oja-place01:testIamPermissions x-goog-quota-user=projects/oja-place01
+[debug] [2026-01-15T15:29:19.537Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/oja-place01:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get","firebasehosting.sites.update","firebaserules.releases.create","firebaserules.releases.update","firebaserules.rulesets.create"]}
+[debug] [2026-01-15T15:29:23.072Z] <<< [apiv2][status] GET https://firebase-public.firebaseio.com/cli.json 200
+[debug] [2026-01-15T15:29:23.073Z] <<< [apiv2][body] GET https://firebase-public.firebaseio.com/cli.json {"cloudBuildErrorAfter":1594252800000,"cloudBuildWarnAfter":1590019200000,"defaultNode10After":1594252800000,"minVersion":"3.0.5","node8DeploysDisabledAfter":1613390400000,"node8RuntimeDisabledAfter":1615809600000,"node8WarnAfter":1600128000000}
+[debug] [2026-01-15T15:29:51.188Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/oja-place01:testIamPermissions 200
+[debug] [2026-01-15T15:29:51.189Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/oja-place01:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get","firebasehosting.sites.update","firebaserules.releases.create","firebaserules.releases.update","firebaserules.rulesets.create"]}
+[debug] [2026-01-15T15:29:51.191Z] Checked if tokens are valid: true, expires at: 1768494558511
+[debug] [2026-01-15T15:29:51.192Z] Checked if tokens are valid: true, expires at: 1768494558511
+[debug] [2026-01-15T15:29:51.193Z] >>> [apiv2][query] POST https://iam.googleapis.com/v1/projects/oja-place01/serviceAccounts/oja-place01@appspot.gserviceaccount.com:testIamPermissions [none]
+[debug] [2026-01-15T15:29:51.193Z] >>> [apiv2][body] POST https://iam.googleapis.com/v1/projects/oja-place01/serviceAccounts/oja-place01@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
+[debug] [2026-01-15T15:29:57.776Z] *** [apiv2] error from fetch(https://iam.googleapis.com/v1/projects/oja-place01/serviceAccounts/oja-place01@appspot.gserviceaccount.com:testIamPermissions, {"headers":{},"method":"POST","body":"{\"permissions\":[\"iam.serviceAccounts.actAs\"]}"}): FetchError: request to https://iam.googleapis.com/v1/projects/oja-place01/serviceAccounts/oja-place01@appspot.gserviceaccount.com:testIamPermissions failed, reason: 
+[debug] [2026-01-15T15:29:57.777Z] [functions] service account IAM check errored, deploy may fail: Failed to make request to https://iam.googleapis.com/v1/projects/oja-place01/serviceAccounts/oja-place01@appspot.gserviceaccount.com:testIamPermissions {"name":"FirebaseError","children":[],"exit":1,"message":"Failed to make request to https://iam.googleapis.com/v1/projects/oja-place01/serviceAccounts/oja-place01@appspot.gserviceaccount.com:testIamPermissions","original":{"message":"request to https://iam.googleapis.com/v1/projects/oja-place01/serviceAccounts/oja-place01@appspot.gserviceaccount.com:testIamPermissions failed, reason: ","type":"system","errno":"ETIMEDOUT","code":"ETIMEDOUT"},"status":500}
+[debug] [2026-01-15T15:29:57.780Z] Checked if tokens are valid: true, expires at: 1768494558511
+[debug] [2026-01-15T15:29:57.780Z] Checked if tokens are valid: true, expires at: 1768494558511
+[debug] [2026-01-15T15:29:57.781Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/oja-place01 [none]
+[debug] [2026-01-15T15:30:27.792Z] *** [apiv2] error from fetch(https://firebase.googleapis.com/v1beta1/projects/oja-place01, {"headers":{},"method":"GET","signal":{}}): AbortError: The user aborted a request.
+[debug] [2026-01-15T15:30:27.793Z] Timeout reached making request to https://firebase.googleapis.com/v1beta1/projects/oja-place01 (original: The user aborted a request.)
+[debug] [2026-01-15T15:30:32.826Z] Error: Timed out.
+    at Timeout._onTimeout (C:\Users\Administrator\AppData\Roaming\npm\node_modules\firebase-tools\lib\utils.js:273:49)
+    at listOnTimeout (node:internal/timers:581:17)
+    at process.processTimers (node:internal/timers:519:7)
+[error] 
+[error] Error: An unexpected error has occurred.
+[debug] [2026-01-16T13:57:27.809Z] ----------------------------------------------------------------------
+[debug] [2026-01-16T13:57:27.816Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Administrator\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy
+[debug] [2026-01-16T13:57:27.816Z] CLI Version:   15.3.1
+[debug] [2026-01-16T13:57:27.817Z] Platform:      win32
+[debug] [2026-01-16T13:57:27.817Z] Node Version:  v20.19.6
+[debug] [2026-01-16T13:57:27.817Z] Time:          Fri Jan 16 2026 14:57:27 GMT+0100 (West Africa Standard Time)
+[debug] [2026-01-16T13:57:27.818Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2026-01-16T13:57:33.169Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-01-16T13:57:33.170Z] > authorizing via signed-in user (gvanherck41@gmail.com)
+[debug] [2026-01-16T13:57:33.170Z] [iam] checking project oja-place01 for permissions ["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get","firebasehosting.sites.update","firebaserules.releases.create","firebaserules.releases.update","firebaserules.rulesets.create"]
+[debug] [2026-01-16T13:57:33.173Z] Checked if tokens are valid: false, expires at: 1768571775526
+[debug] [2026-01-16T13:57:33.174Z] Checked if tokens are valid: false, expires at: 1768571775526
+[debug] [2026-01-16T13:57:33.175Z] > refreshing access token with scopes: []
+[debug] [2026-01-16T13:57:33.179Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2026-01-16T13:57:33.180Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2026-01-16T13:57:34.594Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2026-01-16T13:57:34.595Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2026-01-16T13:57:34.672Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/oja-place01:testIamPermissions [none]
+[debug] [2026-01-16T13:57:34.673Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/oja-place01:testIamPermissions x-goog-quota-user=projects/oja-place01
+[debug] [2026-01-16T13:57:34.674Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/oja-place01:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get","firebasehosting.sites.update","firebaserules.releases.create","firebaserules.releases.update","firebaserules.rulesets.create"]}
+[debug] [2026-01-16T13:57:35.755Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/oja-place01:testIamPermissions 200
+[debug] [2026-01-16T13:57:35.755Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/oja-place01:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get","firebasehosting.sites.update","firebaserules.releases.create","firebaserules.releases.update","firebaserules.rulesets.create"]}
+[debug] [2026-01-16T13:57:35.756Z] Checked if tokens are valid: true, expires at: 1768575453596
+[debug] [2026-01-16T13:57:35.757Z] Checked if tokens are valid: true, expires at: 1768575453596
+[debug] [2026-01-16T13:57:35.757Z] >>> [apiv2][query] POST https://iam.googleapis.com/v1/projects/oja-place01/serviceAccounts/oja-place01@appspot.gserviceaccount.com:testIamPermissions [none]
+[debug] [2026-01-16T13:57:35.757Z] >>> [apiv2][body] POST https://iam.googleapis.com/v1/projects/oja-place01/serviceAccounts/oja-place01@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
+[debug] [2026-01-16T13:57:36.832Z] <<< [apiv2][status] POST https://iam.googleapis.com/v1/projects/oja-place01/serviceAccounts/oja-place01@appspot.gserviceaccount.com:testIamPermissions 200
+[debug] [2026-01-16T13:57:36.832Z] <<< [apiv2][body] POST https://iam.googleapis.com/v1/projects/oja-place01/serviceAccounts/oja-place01@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
+[debug] [2026-01-16T13:57:36.833Z] Checked if tokens are valid: true, expires at: 1768575453596
+[debug] [2026-01-16T13:57:36.833Z] Checked if tokens are valid: true, expires at: 1768575453596
+[debug] [2026-01-16T13:57:36.834Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/oja-place01 [none]
+[debug] [2026-01-16T13:57:40.758Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/oja-place01 200
+[debug] [2026-01-16T13:57:40.758Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/oja-place01 {"projectId":"oja-place01","projectNumber":"543711721814","displayName":"oja!","name":"projects/oja-place01","resources":{"hostingSite":"oja-place01"},"state":"ACTIVE","etag":"1_ab470509-2bf8-4660-89e6-e666d24157e0"}
+[info] 
+[info] === Deploying to 'oja-place01'...
+[info] 
+[info] i  deploying storage, firestore, functions, hosting 
+[info] i  storage: ensuring required API firebasestorage.googleapis.com is enabled... 
+[debug] [2026-01-16T13:57:40.776Z] Checked if tokens are valid: true, expires at: 1768575453596
+[debug] [2026-01-16T13:57:40.777Z] Checked if tokens are valid: true, expires at: 1768575453596
+[debug] [2026-01-16T13:57:40.778Z] >>> [apiv2][query] GET https://firebasestorage.googleapis.com/v1alpha/projects/oja-place01/defaultBucket [none]
+[debug] [2026-01-16T13:57:42.579Z] <<< [apiv2][status] GET https://firebasestorage.googleapis.com/v1alpha/projects/oja-place01/defaultBucket 200
+[debug] [2026-01-16T13:57:42.580Z] <<< [apiv2][body] GET https://firebasestorage.googleapis.com/v1alpha/projects/oja-place01/defaultBucket {"name":"projects/oja-place01/defaultBucket","location":"AFRICA-SOUTH1","bucket":{"name":"projects/oja-place01/buckets/oja-place01.firebasestorage.app"},"storageClass":"REGIONAL"}
+[info] i  firebase.storage: checking storage.rules for compilation errors... 
+[debug] [2026-01-16T13:57:42.584Z] Checked if tokens are valid: true, expires at: 1768575453596
+[debug] [2026-01-16T13:57:42.585Z] Checked if tokens are valid: true, expires at: 1768575453596
+[debug] [2026-01-16T13:57:42.585Z] >>> [apiv2][query] POST https://firebaserules.googleapis.com/v1/projects/oja-place01:test [none]
+[debug] [2026-01-16T13:57:42.585Z] >>> [apiv2][body] POST https://firebaserules.googleapis.com/v1/projects/oja-place01:test [omitted]
+[debug] [2026-01-16T13:57:43.958Z] <<< [apiv2][status] POST https://firebaserules.googleapis.com/v1/projects/oja-place01:test 200
+[debug] [2026-01-16T13:57:43.958Z] <<< [apiv2][body] POST https://firebaserules.googleapis.com/v1/projects/oja-place01:test {}
+[info] +  firebase.storage: rules file storage.rules compiled successfully 
+[info] i  firestore: ensuring required API firestore.googleapis.com is enabled... 
+[info] i  firestore: ensuring required API firestore.googleapis.com is enabled... 
+[debug] [2026-01-16T13:57:43.964Z] Checked if tokens are valid: true, expires at: 1768575453596
+[debug] [2026-01-16T13:57:43.965Z] Checked if tokens are valid: true, expires at: 1768575453596
+[debug] [2026-01-16T13:57:43.965Z] >>> [apiv2][query] GET https://firestore.googleapis.com/v1/projects/oja-place01/databases/(default) [none]
+[debug] [2026-01-16T13:57:45.786Z] <<< [apiv2][status] GET https://firestore.googleapis.com/v1/projects/oja-place01/databases/(default) 200
+[debug] [2026-01-16T13:57:45.787Z] <<< [apiv2][body] GET https://firestore.googleapis.com/v1/projects/oja-place01/databases/(default) {"name":"projects/oja-place01/databases/(default)","uid":"56062043-e770-488d-b133-52912a87d799","createTime":"2025-12-27T16:52:12.825418Z","updateTime":"2025-12-27T16:52:12.825418Z","locationId":"africa-south1","type":"FIRESTORE_NATIVE","concurrencyMode":"PESSIMISTIC","versionRetentionPeriod":"3600s","earliestVersionTime":"2026-01-16T12:57:45.887067Z","appEngineIntegrationMode":"DISABLED","pointInTimeRecoveryEnablement":"POINT_IN_TIME_RECOVERY_DISABLED","deleteProtectionState":"DELETE_PROTECTION_DISABLED","databaseEdition":"STANDARD","freeTier":true,"realtimeUpdatesMode":"REALTIME_UPDATES_MODE_ENABLED","etag":"IPTczc6bkJIDMMTBzaqd3pED"}
+[info] i  firestore: reading indexes from firestore.indexes.json... 
+[info] i  cloud.firestore: checking firestore.rules for compilation errors... 
+[debug] [2026-01-16T13:57:45.792Z] Checked if tokens are valid: true, expires at: 1768575453596
+[debug] [2026-01-16T13:57:45.793Z] Checked if tokens are valid: true, expires at: 1768575453596
+[debug] [2026-01-16T13:57:45.793Z] >>> [apiv2][query] POST https://firebaserules.googleapis.com/v1/projects/oja-place01:test [none]
+[debug] [2026-01-16T13:57:45.793Z] >>> [apiv2][body] POST https://firebaserules.googleapis.com/v1/projects/oja-place01:test [omitted]
+[debug] [2026-01-16T13:57:46.626Z] <<< [apiv2][status] POST https://firebaserules.googleapis.com/v1/projects/oja-place01:test 200
+[debug] [2026-01-16T13:57:46.626Z] <<< [apiv2][body] POST https://firebaserules.googleapis.com/v1/projects/oja-place01:test {"issues":[{"sourcePosition":{"fileName":"firestore.rules","line":34,"column":14,"currentOffset":912,"endOffset":921},"description":"Unused function: isCustomer.","severity":"WARNING"}]}
+[warn] !  [W] 34:14 - Unused function: isCustomer. 
+[info] +  cloud.firestore: rules file firestore.rules compiled successfully 
+[debug] [2026-01-16T13:57:46.633Z] Checked if tokens are valid: true, expires at: 1768575453596
+[debug] [2026-01-16T13:57:46.633Z] Checked if tokens are valid: true, expires at: 1768575453596
+[debug] [2026-01-16T13:57:46.634Z] >>> [apiv2][query] GET https://cloudresourcemanager.googleapis.com/v1/projects/oja-place01 [none]
+[debug] [2026-01-16T13:57:47.781Z] <<< [apiv2][status] GET https://cloudresourcemanager.googleapis.com/v1/projects/oja-place01 200
+[debug] [2026-01-16T13:57:47.781Z] <<< [apiv2][body] GET https://cloudresourcemanager.googleapis.com/v1/projects/oja-place01 {"projectNumber":"543711721814","projectId":"oja-place01","lifecycleState":"ACTIVE","name":"oja!","labels":{"firebase":"enabled","firebase-core":"disabled"},"createTime":"2025-12-27T15:21:36.923649Z"}
+[info] i  functions: preparing codebase default for deployment 
+[info] i  functions: ensuring required API cloudfunctions.googleapis.com is enabled... 
+[info] i  functions: ensuring required API cloudbuild.googleapis.com is enabled... 
+[info] i  artifactregistry: ensuring required API artifactregistry.googleapis.com is enabled... 
+[debug] [2026-01-16T13:57:47.790Z] Checked if tokens are valid: true, expires at: 1768575453596
+[debug] [2026-01-16T13:57:47.790Z] Checked if tokens are valid: true, expires at: 1768575453596
+[debug] [2026-01-16T13:57:47.791Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/oja-place01/adminSdkConfig [none]
+[debug] [2026-01-16T13:57:49.418Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/oja-place01/adminSdkConfig 200
+[debug] [2026-01-16T13:57:49.418Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/oja-place01/adminSdkConfig {"projectId":"oja-place01","storageBucket":"oja-place01.firebasestorage.app"}
+[debug] [2026-01-16T13:57:49.420Z] Checked if tokens are valid: true, expires at: 1768575453596
+[debug] [2026-01-16T13:57:49.420Z] Checked if tokens are valid: true, expires at: 1768575453596
+[debug] [2026-01-16T13:57:49.420Z] >>> [apiv2][query] GET https://runtimeconfig.googleapis.com/v1beta1/projects/oja-place01/configs [none]
+[debug] [2026-01-16T13:57:50.526Z] <<< [apiv2][status] GET https://runtimeconfig.googleapis.com/v1beta1/projects/oja-place01/configs 200
+[debug] [2026-01-16T13:57:50.527Z] <<< [apiv2][body] GET https://runtimeconfig.googleapis.com/v1beta1/projects/oja-place01/configs {}
+[debug] [2026-01-16T13:57:50.531Z] Validating nodejs source
+[debug] [2026-01-16T13:57:54.103Z] > [functions] package.json contents: {
+  "name": "oja",
+  "version": "1.0.0",
+  "description": "Cloud Functions for Oja marketplace",
+  "scripts": {
+    "lint": "eslint .",
+    "serve": "firebase emulators:start --only functions",
+    "shell": "firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "20"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "axios": "^1.6.0",
+    "cors": "^2.8.5",
+    "express": "^5.0.0",
+    "firebase-admin": "^13.6.0",
+    "firebase-functions": "^7.0.3"
+  },
+  "devDependencies": {
+    "eslint": "^8.57.0",
+    "eslint-config-google": "^0.14.0"
+  },
+  "private": true
+}
+[debug] [2026-01-16T13:57:54.105Z] Building nodejs source
+[info] i  functions: Loading and analyzing source code for codebase default to determine what to deploy 
+[debug] [2026-01-16T13:57:54.113Z] Could not find functions.yaml. Must use http discovery
+[debug] [2026-01-16T13:57:54.173Z] Found firebase-functions binary at 'C:\Users\Administrator\Desktop\oja\functions\node_modules\.bin\firebase-functions'
+[info] Serving at port 8314
+
+[info] {"severity":"INFO","message":"Initializing Firebase Functions"}
+
+[debug] [2026-01-16T13:57:58.644Z] Got response from /__/functions.yaml {"endpoints":{"processPayment":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"callableTrigger":{},"entryPoint":"processPayment"},"getPaymentHistory":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"callableTrigger":{},"entryPoint":"getPaymentHistory"},"refundPayment":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"callableTrigger":{},"entryPoint":"refundPayment"},"paymentWebhook":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"callableTrigger":{},"entryPoint":"paymentWebhook"},"onPaymentCreated":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"eventTrigger":{"eventType":"google.cloud.firestore.document.v1.created","eventFilters":{"database":"(default)","namespace":"(default)"},"eventFilterPathPatterns":{"document":"payments/{paymentId}"},"retry":false},"entryPoint":"onPaymentCreated"},"createAdFromAds":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"callableTrigger":{},"entryPoint":"createAdFromAds"},"getVendorAds":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"callableTrigger":{},"entryPoint":"getVendorAds"},"updateAdStatus":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"callableTrigger":{},"entryPoint":"updateAdStatus"},"createAd":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"callableTrigger":{},"entryPoint":"createAd"},"activateAd":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"callableTrigger":{},"entryPoint":"activateAd"},"getVendorProfile":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"callableTrigger":{},"entryPoint":"getVendorProfile"},"updateVendorProfile":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"callableTrigger":{},"entryPoint":"updateVendorProfile"},"trackAdView":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"callableTrigger":{},"entryPoint":"trackAdView"},"trackAdClick":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"callableTrigger":{},"entryPoint":"trackAdClick"},"getAdAnalytics":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"callableTrigger":{},"entryPoint":"getAdAnalytics"},"trackProductView":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"callableTrigger":{},"entryPoint":"trackProductView"},"notifyAdActivated":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"eventTrigger":{"eventType":"google.cloud.firestore.document.v1.created","eventFilters":{"database":"(default)","namespace":"(default)"},"eventFilterPathPatterns":{"document":"ads/{adId}"},"retry":false},"entryPoint":"notifyAdActivated"},"createUserProfile":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"blockingTrigger":{"eventType":"providers/cloud.auth/eventTypes/user.beforeCreate","options":{"accessToken":false,"idToken":false,"refreshToken":false}},"entryPoint":"createUserProfile"},"updateUserStats":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"eventTrigger":{"eventType":"google.cloud.firestore.document.v1.updated","eventFilters":{"database":"(default)","namespace":"(default)"},"eventFilterPathPatterns":{"document":"users/{userId}"},"retry":false},"entryPoint":"updateUserStats"},"createOrder":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"callableTrigger":{},"entryPoint":"createOrder"},"updateOrderStatus":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"callableTrigger":{},"entryPoint":"updateOrderStatus"},"getProductPrice":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"callableTrigger":{},"entryPoint":"getProductPrice"},"manageProduct":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"callableTrigger":{},"entryPoint":"manageProduct"},"updateProductRating":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"eventTrigger":{"eventType":"google.cloud.firestore.document.v1.created","eventFilters":{"database":"(default)","namespace":"(default)"},"eventFilterPathPatterns":{"document":"reviews/{reviewId}"},"retry":false},"entryPoint":"updateProductRating"},"cleanupOldCarts":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"scheduleTrigger":{"schedule":"every day 00:00","retryConfig":{"retryCount":null,"maxDoublings":null,"maxRetrySeconds":null,"minBackoffSeconds":null,"maxBackoffSeconds":null},"timeZone":null},"entryPoint":"cleanupOldCarts"},"sendCartReminders":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"scheduleTrigger":{"schedule":"every 1 hour","retryConfig":{"retryCount":null,"maxDoublings":null,"maxRetrySeconds":null,"minBackoffSeconds":null,"maxBackoffSeconds":null},"timeZone":null},"entryPoint":"sendCartReminders"},"updateExchangeRates":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"scheduleTrigger":{"schedule":"every day 02:00","retryConfig":{"retryCount":null,"maxDoublings":null,"maxRetrySeconds":null,"minBackoffSeconds":null,"maxBackoffSeconds":null},"timeZone":null},"entryPoint":"updateExchangeRates"},"getExchangeRates":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"callableTrigger":{},"entryPoint":"getExchangeRates"},"convertAmount":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"callableTrigger":{},"entryPoint":"convertAmount"}},"specVersion":"v1alpha1","requiredAPIs":[{"api":"identitytoolkit.googleapis.com","reason":"Needed for auth blocking functions"},{"api":"cloudscheduler.googleapis.com","reason":"Needed for scheduled functions."}],"extensions":{}}
+[info] i  extensions: ensuring required API firebaseextensions.googleapis.com is enabled... 
+[debug] [2026-01-16T13:58:02.828Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-01-16T13:58:02.829Z] > authorizing via signed-in user (gvanherck41@gmail.com)
+[debug] [2026-01-16T13:58:02.829Z] [iam] checking project oja-place01 for permissions ["firebase.projects.get","firebaseextensions.instances.list"]
+[debug] [2026-01-16T13:58:02.830Z] Checked if tokens are valid: true, expires at: 1768575453596
+[debug] [2026-01-16T13:58:02.830Z] Checked if tokens are valid: true, expires at: 1768575453596
+[debug] [2026-01-16T13:58:02.831Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/oja-place01:testIamPermissions [none]
+[debug] [2026-01-16T13:58:02.831Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/oja-place01:testIamPermissions x-goog-quota-user=projects/oja-place01
+[debug] [2026-01-16T13:58:02.831Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/oja-place01:testIamPermissions {"permissions":["firebase.projects.get","firebaseextensions.instances.list"]}
+[debug] [2026-01-16T14:27:50.965Z] ----------------------------------------------------------------------
+[debug] [2026-01-16T14:27:50.981Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Administrator\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy
+[debug] [2026-01-16T14:27:50.983Z] CLI Version:   15.3.1
+[debug] [2026-01-16T14:27:50.984Z] Platform:      win32
+[debug] [2026-01-16T14:27:50.985Z] Node Version:  v20.19.6
+[debug] [2026-01-16T14:27:50.985Z] Time:          Fri Jan 16 2026 15:27:50 GMT+0100 (West Africa Standard Time)
+[debug] [2026-01-16T14:27:50.986Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2026-01-16T14:27:54.131Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-01-16T14:27:54.132Z] > authorizing via signed-in user (gvanherck41@gmail.com)
+[debug] [2026-01-16T14:27:54.133Z] [iam] checking project oja-place01 for permissions ["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get","firebasehosting.sites.update","firebaserules.releases.create","firebaserules.releases.update","firebaserules.rulesets.create"]
+[debug] [2026-01-16T14:27:54.138Z] Checked if tokens are valid: true, expires at: 1768575453596
+[debug] [2026-01-16T14:27:54.138Z] Checked if tokens are valid: true, expires at: 1768575453596
+[debug] [2026-01-16T14:27:54.141Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/oja-place01:testIamPermissions [none]
+[debug] [2026-01-16T14:27:54.141Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/oja-place01:testIamPermissions x-goog-quota-user=projects/oja-place01
+[debug] [2026-01-16T14:27:54.142Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/oja-place01:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get","firebasehosting.sites.update","firebaserules.releases.create","firebaserules.releases.update","firebaserules.rulesets.create"]}
+[debug] [2026-01-16T15:56:14.452Z] ----------------------------------------------------------------------
+[debug] [2026-01-16T15:56:14.456Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Administrator\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy
+[debug] [2026-01-16T15:56:14.457Z] CLI Version:   15.3.1
+[debug] [2026-01-16T15:56:14.457Z] Platform:      win32
+[debug] [2026-01-16T15:56:14.457Z] Node Version:  v20.19.6
+[debug] [2026-01-16T15:56:14.457Z] Time:          Fri Jan 16 2026 16:56:14 GMT+0100 (West Africa Standard Time)
+[debug] [2026-01-16T15:56:14.458Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2026-01-16T15:56:14.468Z] >>> [apiv2][query] GET https://firebase-public.firebaseio.com/cli.json [none]
+[debug] [2026-01-16T15:56:18.811Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-01-16T15:56:18.811Z] > authorizing via signed-in user (gvanherck41@gmail.com)
+[debug] [2026-01-16T15:56:18.811Z] [iam] checking project oja-place01 for permissions ["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get","firebasehosting.sites.update","firebaserules.releases.create","firebaserules.releases.update","firebaserules.rulesets.create"]
+[debug] [2026-01-16T15:56:18.812Z] Checked if tokens are valid: false, expires at: 1768575453596
+[debug] [2026-01-16T15:56:18.813Z] Checked if tokens are valid: false, expires at: 1768575453596
+[debug] [2026-01-16T15:56:18.813Z] > refreshing access token with scopes: []
+[debug] [2026-01-16T15:56:18.814Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2026-01-16T15:56:18.814Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2026-01-16T15:56:32.338Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2026-01-16T15:56:32.339Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2026-01-16T15:56:32.363Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/oja-place01:testIamPermissions [none]
+[debug] [2026-01-16T15:56:32.363Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/oja-place01:testIamPermissions x-goog-quota-user=projects/oja-place01
+[debug] [2026-01-16T15:56:32.364Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/oja-place01:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get","firebasehosting.sites.update","firebaserules.releases.create","firebaserules.releases.update","firebaserules.rulesets.create"]}
+[debug] [2026-01-16T15:56:56.359Z] *** [apiv2] error from fetch(https://firebase-public.firebaseio.com/cli.json, {"headers":{},"method":"GET"}): FetchError: request to https://firebase-public.firebaseio.com/cli.json failed, reason: read ECONNRESET
+[warn] !  Unable to fetch the CLI MOTD and remote config. This is not a fatal error, but may indicate an issue with your network connection. 
+[debug] [2026-01-16T15:56:56.360Z] Failed to fetch MOTD FirebaseError: Failed to make request to https://firebase-public.firebaseio.com/cli.json
+[debug] [2026-01-16T20:05:31.904Z] ----------------------------------------------------------------------
+[debug] [2026-01-16T20:05:31.913Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Administrator\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy
+[debug] [2026-01-16T20:05:31.914Z] CLI Version:   15.3.1
+[debug] [2026-01-16T20:05:31.914Z] Platform:      win32
+[debug] [2026-01-16T20:05:31.914Z] Node Version:  v20.19.6
+[debug] [2026-01-16T20:05:31.915Z] Time:          Fri Jan 16 2026 21:05:31 GMT+0100 (West Africa Standard Time)
+[debug] [2026-01-16T20:05:31.915Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2026-01-16T20:05:31.921Z] >>> [apiv2][query] GET https://firebase-public.firebaseio.com/cli.json [none]
+[debug] [2026-01-16T20:05:37.210Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-01-16T20:05:37.210Z] > authorizing via signed-in user (gvanherck41@gmail.com)
+[debug] [2026-01-16T20:05:37.211Z] [iam] checking project oja-place01 for permissions ["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get","firebasehosting.sites.update","firebaserules.releases.create","firebaserules.releases.update","firebaserules.rulesets.create"]
+[debug] [2026-01-16T20:05:37.212Z] Checked if tokens are valid: false, expires at: 1768582591339
+[debug] [2026-01-16T20:05:37.213Z] Checked if tokens are valid: false, expires at: 1768582591339
+[debug] [2026-01-16T20:05:37.213Z] > refreshing access token with scopes: []
+[debug] [2026-01-16T20:05:37.216Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2026-01-16T20:05:37.216Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2026-01-16T20:05:37.234Z] *** [apiv2] error from fetch(https://firebase-public.firebaseio.com/cli.json, {"headers":{},"method":"GET"}): FetchError: request to https://firebase-public.firebaseio.com/cli.json failed, reason: getaddrinfo EAI_AGAIN firebase-public.firebaseio.com
+[warn] !  Unable to fetch the CLI MOTD and remote config. This is not a fatal error, but may indicate an issue with your network connection. 
+[debug] [2026-01-16T20:05:37.237Z] Failed to fetch MOTD FirebaseError: Failed to make request to https://firebase-public.firebaseio.com/cli.json
+[debug] [2026-01-16T20:05:38.286Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2026-01-16T20:05:38.287Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2026-01-16T20:05:38.383Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/oja-place01:testIamPermissions [none]
+[debug] [2026-01-16T20:05:38.384Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/oja-place01:testIamPermissions x-goog-quota-user=projects/oja-place01
+[debug] [2026-01-16T20:05:38.384Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/oja-place01:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get","firebasehosting.sites.update","firebaserules.releases.create","firebaserules.releases.update","firebaserules.rulesets.create"]}
+[debug] [2026-01-16T20:05:42.202Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/oja-place01:testIamPermissions 200
+[debug] [2026-01-16T20:05:42.203Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/oja-place01:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get","firebasehosting.sites.update","firebaserules.releases.create","firebaserules.releases.update","firebaserules.rulesets.create"]}
+[debug] [2026-01-16T20:05:42.204Z] Checked if tokens are valid: true, expires at: 1768597537288
+[debug] [2026-01-16T20:05:42.205Z] Checked if tokens are valid: true, expires at: 1768597537288
+[debug] [2026-01-16T20:05:42.205Z] >>> [apiv2][query] POST https://iam.googleapis.com/v1/projects/oja-place01/serviceAccounts/oja-place01@appspot.gserviceaccount.com:testIamPermissions [none]
+[debug] [2026-01-16T20:05:42.205Z] >>> [apiv2][body] POST https://iam.googleapis.com/v1/projects/oja-place01/serviceAccounts/oja-place01@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
+[debug] [2026-01-16T20:59:41.325Z] ----------------------------------------------------------------------
+[debug] [2026-01-16T20:59:41.337Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Administrator\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy --only firestore
+[debug] [2026-01-16T20:59:41.338Z] CLI Version:   15.3.1
+[debug] [2026-01-16T20:59:41.339Z] Platform:      win32
+[debug] [2026-01-16T20:59:41.339Z] Node Version:  v20.19.6
+[debug] [2026-01-16T20:59:41.340Z] Time:          Fri Jan 16 2026 21:59:41 GMT+0100 (West Africa Standard Time)
+[debug] [2026-01-16T20:59:41.340Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2026-01-16T20:59:41.349Z] >>> [apiv2][query] GET https://firebase-public.firebaseio.com/cli.json [none]
+[debug] [2026-01-16T20:59:45.514Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-01-16T20:59:45.515Z] > authorizing via signed-in user (gvanherck41@gmail.com)
+[debug] [2026-01-16T20:59:45.516Z] [iam] checking project oja-place01 for permissions ["datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get"]
+[debug] [2026-01-16T20:59:45.517Z] Checked if tokens are valid: false, expires at: 1768597537288
+[debug] [2026-01-16T20:59:45.518Z] Checked if tokens are valid: false, expires at: 1768597537288
+[debug] [2026-01-16T20:59:45.518Z] > refreshing access token with scopes: []
+[debug] [2026-01-16T20:59:45.520Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2026-01-16T20:59:45.521Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2026-01-16T20:59:46.203Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2026-01-16T20:59:46.203Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2026-01-16T20:59:46.304Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/oja-place01:testIamPermissions [none]
+[debug] [2026-01-16T20:59:46.304Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/oja-place01:testIamPermissions x-goog-quota-user=projects/oja-place01
+[debug] [2026-01-16T20:59:46.305Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/oja-place01:testIamPermissions {"permissions":["datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get"]}
+[debug] [2026-01-16T20:59:47.735Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/oja-place01:testIamPermissions 200
+[debug] [2026-01-16T20:59:47.735Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/oja-place01:testIamPermissions {"permissions":["datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get"]}
+[info] 
+[info] === Deploying to 'oja-place01'...
+[info] 
+[info] i  deploying firestore 
+[info] i  firestore: ensuring required API firestore.googleapis.com is enabled... 
+[info] i  firestore: ensuring required API firestore.googleapis.com is enabled... 
+[debug] [2026-01-16T20:59:47.749Z] Checked if tokens are valid: true, expires at: 1768600785204
+[debug] [2026-01-16T20:59:47.749Z] Checked if tokens are valid: true, expires at: 1768600785204
+[debug] [2026-01-16T20:59:47.750Z] >>> [apiv2][query] GET https://firestore.googleapis.com/v1/projects/oja-place01/databases/(default) [none]
+[debug] [2026-01-16T20:59:49.763Z] <<< [apiv2][status] GET https://firestore.googleapis.com/v1/projects/oja-place01/databases/(default) 200
+[debug] [2026-01-16T20:59:49.763Z] <<< [apiv2][body] GET https://firestore.googleapis.com/v1/projects/oja-place01/databases/(default) {"name":"projects/oja-place01/databases/(default)","uid":"56062043-e770-488d-b133-52912a87d799","createTime":"2025-12-27T16:52:12.825418Z","updateTime":"2025-12-27T16:52:12.825418Z","locationId":"africa-south1","type":"FIRESTORE_NATIVE","concurrencyMode":"PESSIMISTIC","versionRetentionPeriod":"3600s","earliestVersionTime":"2026-01-16T19:59:50.895736Z","appEngineIntegrationMode":"DISABLED","pointInTimeRecoveryEnablement":"POINT_IN_TIME_RECOVERY_DISABLED","deleteProtectionState":"DELETE_PROTECTION_DISABLED","databaseEdition":"STANDARD","freeTier":true,"realtimeUpdatesMode":"REALTIME_UPDATES_MODE_ENABLED","etag":"IOLKwfr5kJIDMMTBzaqd3pED"}
+[info] i  firestore: reading indexes from firestore.indexes.json... 
+[info] i  cloud.firestore: checking firestore.rules for compilation errors... 
+[debug] [2026-01-16T20:59:49.829Z] Checked if tokens are valid: true, expires at: 1768600785204
+[debug] [2026-01-16T20:59:49.830Z] Checked if tokens are valid: true, expires at: 1768600785204
+[debug] [2026-01-16T20:59:49.831Z] >>> [apiv2][query] POST https://firebaserules.googleapis.com/v1/projects/oja-place01:test [none]
+[debug] [2026-01-16T20:59:49.831Z] >>> [apiv2][body] POST https://firebaserules.googleapis.com/v1/projects/oja-place01:test [omitted]
+[debug] [2026-01-16T21:00:23.349Z] *** [apiv2] error from fetch(https://firebase-public.firebaseio.com/cli.json, {"headers":{},"method":"GET"}): FetchError: request to https://firebase-public.firebaseio.com/cli.json failed, reason: read ECONNRESET
+[warn] !  Unable to fetch the CLI MOTD and remote config. This is not a fatal error, but may indicate an issue with your network connection. 
+[debug] [2026-01-16T21:00:23.351Z] Failed to fetch MOTD FirebaseError: Failed to make request to https://firebase-public.firebaseio.com/cli.json
+[debug] [2026-01-16T21:03:08.525Z] ----------------------------------------------------------------------
+[debug] [2026-01-16T21:03:08.534Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Administrator\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy --only firestore
+[debug] [2026-01-16T21:03:08.535Z] CLI Version:   15.3.1
+[debug] [2026-01-16T21:03:08.535Z] Platform:      win32
+[debug] [2026-01-16T21:03:08.535Z] Node Version:  v20.19.6
+[debug] [2026-01-16T21:03:08.536Z] Time:          Fri Jan 16 2026 22:03:08 GMT+0100 (West Africa Standard Time)
+[debug] [2026-01-16T21:03:08.536Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2026-01-16T21:03:08.542Z] >>> [apiv2][query] GET https://firebase-public.firebaseio.com/cli.json [none]
+[debug] [2026-01-16T21:03:12.175Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-01-16T21:03:12.176Z] > authorizing via signed-in user (gvanherck41@gmail.com)
+[debug] [2026-01-16T21:03:12.177Z] [iam] checking project oja-place01 for permissions ["datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get"]
+[debug] [2026-01-16T21:03:12.178Z] Checked if tokens are valid: true, expires at: 1768600785204
+[debug] [2026-01-16T21:03:12.179Z] Checked if tokens are valid: true, expires at: 1768600785204
+[debug] [2026-01-16T21:03:12.180Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/oja-place01:testIamPermissions [none]
+[debug] [2026-01-16T21:03:12.180Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/oja-place01:testIamPermissions x-goog-quota-user=projects/oja-place01
+[debug] [2026-01-16T21:03:12.180Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/oja-place01:testIamPermissions {"permissions":["datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get"]}
+[debug] [2026-01-16T21:03:13.076Z] <<< [apiv2][status] GET https://firebase-public.firebaseio.com/cli.json 200
+[debug] [2026-01-16T21:03:13.077Z] <<< [apiv2][body] GET https://firebase-public.firebaseio.com/cli.json {"cloudBuildErrorAfter":1594252800000,"cloudBuildWarnAfter":1590019200000,"defaultNode10After":1594252800000,"minVersion":"3.0.5","node8DeploysDisabledAfter":1613390400000,"node8RuntimeDisabledAfter":1615809600000,"node8WarnAfter":1600128000000}
+[debug] [2026-01-16T21:03:13.472Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/oja-place01:testIamPermissions 200
+[debug] [2026-01-16T21:03:13.473Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/oja-place01:testIamPermissions {"permissions":["datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get"]}
+[info] 
+[info] === Deploying to 'oja-place01'...
+[info] 
+[info] i  deploying firestore 
+[info] i  firestore: ensuring required API firestore.googleapis.com is enabled... 
+[info] i  firestore: ensuring required API firestore.googleapis.com is enabled... 
+[debug] [2026-01-16T21:03:13.493Z] Checked if tokens are valid: true, expires at: 1768600785204
+[debug] [2026-01-16T21:03:13.494Z] Checked if tokens are valid: true, expires at: 1768600785204
+[debug] [2026-01-16T21:03:13.494Z] >>> [apiv2][query] GET https://firestore.googleapis.com/v1/projects/oja-place01/databases/(default) [none]

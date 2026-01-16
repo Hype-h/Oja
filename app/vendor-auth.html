@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vendor Authentication - Oja Marketplace</title>
+  <link rel="icon" type="image/x-icon" href="./public/favicon.ico">
+  <link rel="stylesheet" href="./styles.css">
+  <style>
+    * { box-sizing: border-box; }
+    
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background-color: #f9fafb;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    }
+    
+    body > nav {
+      background-color: #ffffff;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2rem;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    
+    body > nav .logo {
+      display: flex;
+      align-items: center;
+    }
+    
+    body > nav .logo-img {
+      height: 40px;
+      width: auto;
+      border-radius: 4px;
+    }
+    
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 2rem;
+      margin: 0;
+      padding: 0;
+    }
+    
+    .nav-links a {
+      text-decoration: none;
+      color: #4b5563;
+      font-weight: 600;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      transition: all 0.2s;
+    }
+    
+    .nav-links a:hover {
+      color: #d97706;
+      background-color: #f3f4f6;
+    }
+    
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    
+    .btn {
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-size: 1rem;
+    }
+    
+    .btn-primary {
+      background-color: #d97706;
+      color: white;
+    }
+    
+    .btn-primary:hover:not(:disabled) {
+      background-color: #b45309;
+    }
+    
+    .btn-secondary {
+      background-color: #f3f4f6;
+      color: #4b5563;
+    }
+    
+    .btn-secondary:hover:not(:disabled) {
+      background-color: #e5e7eb;
+    }
+    
+    .btn.full-width {
+      width: 100%;
+    }
+    
+    .vendor-auth-container {
+      display: flex;
+      min-height: calc(100vh - 64px);
+    }
+    
+    .vendor-ad-side {
+      flex: 1;
+      background: linear-gradient(135deg, #d97706 0%, #b45309 100%);
+      padding: 3rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      text-align: center;
+    }
+    
+    .vendor-ad-image {
+      width: 200px;
+      height: 200px;
+      border-radius: 12px;
+      margin-bottom: 2rem;
+      background-color: rgba(255, 255, 255, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 4rem;
+    }
+    
+    .vendor-ad-side h2 {
+      color: white;
+      margin-bottom: 1rem;
+      font-size: 2rem;
+    }
+    
+    .vendor-ad-side p {
+      opacity: 0.9;
+      margin-bottom: 2rem;
+      font-size: 1.1rem;
+    }
+    
+    .vendor-benefits {
+      list-style: none;
+      text-align: left;
+      display: inline-block;
+      margin: 0;
+      padding: 0;
+    }
+    
+    .vendor-benefits li {
+      margin-bottom: 0.75rem;
+      padding-left: 2rem;
+      position: relative;
+    }
+    
+    .vendor-benefits li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: white;
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+    
+    .vendor-auth-side {
+      flex: 1;
+      padding: 4rem 3rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      background-color: white;
+    }
+    
+    .auth-form {
+      max-width: 400px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    
+    .auth-form h1 {
+      color: #1f2937;
+      margin-bottom: 0.5rem;
+      text-align: center;
+      font-size: 1.875rem;
+    }
+    
+    .auth-form > p {
+      color: #6b7280;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+    
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+    
+    .form-group label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: #1f2937;
+    }
+    
+    .form-group input {
+      width: 100%;
+      padding: 0.875rem 1rem;
+      border: 2px solid #e5e7eb;
+      border-radius: 6px;
+      font-size: 1rem;
+      font-family: inherit;
+      transition: all 0.2s;
+    }
+    
+    .form-group input:focus {
+      outline: none;
+      border-color: #d97706;
+      box-shadow: 0 0 0 3px rgba(217, 119, 6, 0.1);
+    }
+    
+    .form-group input::placeholder {
+      color: #9ca3af;
+    }
+    
+    .form-group input.error {
+      border-color: #ef4444;
+    }
+    
+    .form-group input.success {
+      border-color: #22c55e;
+    }
+    
+    .auth-link {
+      text-align: center;
+      margin-top: 1.5rem;
+      color: #6b7280;
+    }
+    
+    .auth-link a {
+      color: #d97706;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    
+    .auth-link a:hover {
+      text-decoration: underline;
+    }
+    
+    .alert {
+      position: fixed;
+      top: calc(64px + 1rem);
+      right: 1rem;
+      padding: 1rem 1.5rem;
+      border-radius: 6px;
+      font-weight: 500;
+      z-index: 9999;
+      transform: translateX(150%);
+      transition: transform 0.3s;
+      max-width: 400px;
+      box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+    }
+    
+    .alert.active {
+      transform: translateX(0);
+    }
+    
+    .alert-success {
+      background-color: #22c55e;
+      color: white;
+      border-left: 4px solid #16a34a;
+    }
+    
+    .alert-error {
+      background-color: #ef4444;
+      color: white;
+      border-left: 4px solid #dc2626;
+    }
+    
+    .alert-info {
+      background-color: #3b82f6;
+      color: white;
+      border-left: 4px solid #2563eb;
+    }
+    
+    .btn.loading {
+      position: relative;
+      pointer-events: none;
+      opacity: 0.7;
+    }
+    
+    .btn.loading::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 20px;
+      height: 20px;
+      margin: -10px 0 0 -10px;
+      border: 3px solid rgba(255, 255, 255, 0.3);
+      border-top-color: white;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+    
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    
+    .terms-checkbox {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      margin-top: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .terms-checkbox input[type="checkbox"] {
+      margin-top: 0.25rem;
+      width: auto;
+      cursor: pointer;
+    }
+    
+    .terms-checkbox label {
+      font-size: 0.875rem;
+      color: #6b7280;
+      line-height: 1.4;
+      font-weight: normal;
+      cursor: pointer;
+    }
+    
+    .terms-checkbox a {
+      color: #d97706;
+      text-decoration: none;
+    }
+    
+    .terms-checkbox a:hover {
+      text-decoration: underline;
+    }
+
+    .password-strength {
+      height: 4px;
+      background-color: #e5e7eb;
+      border-radius: 2px;
+      margin-top: 0.5rem;
+      overflow: hidden;
+    }
+
+    .password-strength-bar {
+      height: 100%;
+      transition: all 0.3s;
+      border-radius: 2px;
+    }
+
+    .password-strength-text {
+      font-size: 0.75rem;
+      margin-top: 0.25rem;
+      font-weight: 500;
+    }
+    
+    @media (max-width: 1024px) {
+      .vendor-auth-container {
+        flex-direction: column;
+      }
+      
+      .vendor-ad-side,
+      .vendor-auth-side {
+        flex: none;
+        width: 100%;
+      }
+      
+      .vendor-ad-side {
+        padding: 2rem;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .vendor-ad-side {
+        display: none;
+      }
+      
+      .vendor-auth-side {
+        padding: 2rem 1.5rem;
+      }
+      
+      body > nav {
+        padding: 0 1rem;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      body > nav {
+        height: auto;
+        flex-wrap: wrap;
+        padding: 1rem;
+      }
+      
+      .nav-links {
+        width: 100%;
+        justify-content: center;
+        margin-top: 0.5rem;
+      }
+      
+      .auth-form {
+        max-width: 100%;
+      }
+      
+      .alert {
+        left: 1rem;
+        right: 1rem;
+        max-width: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="logo">
+      <img src="./public/logo.png" alt="Oja Logo" class="logo-img" onerror="this.style.display='none'">
+    </div>
+    <ul class="nav-links">
+      <li><a href="./index.html">Home</a></li>
+      <li><a href="./customer-auth.html">Customer Login</a></li>
+    </ul>
+    <div class="nav-right">
+      <button class="btn btn-secondary" onclick="window.location.href='index.html'">Back to Home</button>
+    </div>
+  </nav>
+
+  <div class="alert alert-success" id="successAlert"></div>
+  <div class="alert alert-error" id="errorAlert"></div>
+  <div class="alert alert-info" id="infoAlert"></div>
+
+  <div class="vendor-auth-container">
+    <div class="vendor-ad-side">
+      <div class="vendor-ad-image">🏪</div>
+      <h2>Grow Your Business</h2>
+      <p>Reach thousands of customers with Oja vendor platform</p>
+      <ul class="vendor-benefits">
+        <li>Easy product management</li>
+        <li>Secure payments & withdrawals</li>
+        <li>Marketing & promotional tools</li>
+        <li>Real-time analytics & insights</li>
+        <li>24/7 seller support</li>
+        <li>Competitive commission rates</li>
+      </ul>
+    </div>
+
+    <div class="vendor-auth-side">
+      <div id="authContent">
+        <!-- Login Form -->
+        <div id="loginForm" class="auth-form">
+          <h1>Vendor Sign In</h1>
+          <p>Manage your shop and grow your business</p>
+          <form id="loginFormElement">
+            <div class="form-group">
+              <label for="vendorEmail">Email Address</label>
+              <input 
+                type="email" 
+                id="vendorEmail" 
+                name="email"
+                placeholder="vendor@example.com" 
+                required 
+                autocomplete="email"
+                spellcheck="false">
+            </div>
+            <div class="form-group">
+              <label for="vendorPassword">Password</label>
+              <input 
+                type="password" 
+                id="vendorPassword" 
+                name="password"
+                placeholder="Enter your password" 
+                required 
+                autocomplete="current-password"
+                minlength="6">
+              <div style="text-align: right; margin-top: 0.5rem;">
+                <a href="#" id="forgotPasswordLink" style="font-size: 0.875rem; color: #d97706; text-decoration: none;">Forgot password?</a>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary full-width">Sign In</button>
+          </form>
+          <div class="auth-link">
+            Don't have a vendor account? <a href="#" id="showRegisterLink">Apply Now</a>
+          </div>
+          <div class="auth-link">
+            <a href="./customer-auth.html">Sign in as Customer</a> | 
+            <a href="./admin-auth.html">Admin Login</a>
+          </div>
+        </div>
+
+        <!-- Register Form -->
+        <div id="registerForm" class="auth-form" style="display: none;">
+          <h1>Become a Vendor</h1>
+          <p>Start selling on Oja in minutes</p>
+          <form id="registerFormElement">
+            <div class="form-group">
+              <label for="vendorBusiness">Business Name</label>
+              <input 
+                type="text" 
+                id="vendorBusiness" 
+                name="businessName"
+                placeholder="Your business name" 
+                required 
+                autocomplete="organization"
+                minlength="3"
+                maxlength="100">
+            </div>
+            <div class="form-group">
+              <label for="vendorRegisterEmail">Email Address</label>
+              <input 
+                type="email" 
+                id="vendorRegisterEmail" 
+                name="email"
+                placeholder="vendor@example.com" 
+                required 
+                autocomplete="email"
+                spellcheck="false">
+            </div>
+            <div class="form-group">
+              <label for="vendorPhone">Phone Number</label>
+              <input 
+                type="tel" 
+                id="vendorPhone" 
+                name="phone"
+                placeholder="+234..." 
+                required 
+                autocomplete="tel">
+            </div>
+            <div class="form-group">
+              <label for="vendorAddress">Business Address</label>
+              <input 
+                type="text" 
+                id="vendorAddress" 
+                name="address"
+                placeholder="Your business address" 
+                autocomplete="street-address"
+                maxlength="200">
+            </div>
+            <div class="form-group">
+              <label for="vendorRegisterPassword">Password</label>
+              <input 
+                type="password" 
+                id="vendorRegisterPassword" 
+                name="password"
+                placeholder="Create a strong password" 
+                required 
+                minlength="6" 
+                autocomplete="new-password">
+              <div class="password-strength" id="passwordStrength" style="display: none;">
+                <div class="password-strength-bar" id="passwordStrengthBar"></div>
+              </div>
+              <div class="password-strength-text" id="passwordStrengthText"></div>
+            </div>
+            <div class="terms-checkbox">
+              <input type="checkbox" id="vendorTerms" name="terms" required>
+              <label for="vendorTerms">
+                I agree to the <a href="#" id="showTermsLink">Terms of Service</a> and <a href="#" id="showPrivacyLink">Privacy Policy</a>
+              </label>
+            </div>
+            <button type="submit" class="btn btn-primary full-width">Submit Application</button>
+          </form>
+          <div class="auth-link">
+            Already registered? <a href="#" id="showLoginLink">Sign In</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Firebase SDK - Load in correct order -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+  
+  <!-- Application Script -->
+  <script src="./js/vendor-auth.js"></script>
+</body>
+</html>

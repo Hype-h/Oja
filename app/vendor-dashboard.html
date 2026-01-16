@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vendor Dashboard - Oja Marketplace</title>
+  <link rel="stylesheet" href="./admin-dashboard.css">
+</head>
+<body>
+  <!-- Navigation -->
+  <nav>
+    <div class="logo">🛒 Oja Marketplace</div>
+    <ul class="nav-links">
+      <li><a href="./index.html">Home</a></li>
+      <li><a href="./vendor-dashboard.html" class="active">Dashboard</a></li>
+    </ul>
+    <div class="nav-right">
+      <span id="vendorName"></span>
+      <button class="btn btn-secondary" onclick="logout()">Logout</button>
+    </div>
+  </nav>
+
+  <!-- Alerts -->
+  <div class="alert alert-success hidden" id="successAlert"></div>
+  <div class="alert alert-error hidden" id="errorAlert"></div>
+
+  <!-- Dashboard Content -->
+  <div class="container">
+    <h1 class="section-title">Vendor Dashboard</h1>
+
+    <!-- Stats -->
+    <div class="dashboard-stats">
+      <div class="stat-card">
+        <h3>Total Products</h3>
+        <p class="stat-value" id="totalProducts">0</p>
+      </div>
+      <div class="stat-card">
+        <h3>Total Orders</h3>
+        <p class="stat-value" id="totalOrders">0</p>
+      </div>
+      <div class="stat-card">
+        <h3>Pending Orders</h3>
+        <p class="stat-value" id="pendingOrders">0</p>
+      </div>
+      <div class="stat-card">
+        <h3>Total Revenue</h3>
+        <p class="stat-value" id="totalEarnings">$0.00</p>
+      </div>
+      <div class="stat-card">
+        <h3>Low Stock Items</h3>
+        <p class="stat-value" id="lowStock">0</p>
+      </div>
+      <div class="stat-card">
+        <h3>Avg Rating</h3>
+        <p class="stat-value" id="avgRating">0.0</p>
+      </div>
+    </div>
+
+    <!-- Tabs -->
+    <div class="tabs">
+      <button class="tab active" onclick="switchTab('products')">Products</button>
+      <button class="tab" onclick="switchTab('orders')">Orders</button>
+      <button class="tab" onclick="switchTab('analytics')">Analytics</button>
+      <button class="tab" onclick="switchTab('settings')">Settings</button>
+    </div>
+
+    <!-- Products Tab -->
+    <div id="productsTab" class="tab-content active">
+      <div class="dashboard-section">
+        <div class="section-header">
+          <h2>My Products</h2>
+          <div class="section-header-controls">
+            <input type="text" class="search-box" id="productSearch" placeholder="Search products..." oninput="filterProducts()">
+            <button class="btn btn-primary" onclick="showAddProductModal()">+ Add Product</button>
+          </div>
+        </div>
+        <div id="vendorProductsList">
+          <div class="empty-state">Loading products...</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Orders Tab -->
+    <div id="ordersTab" class="tab-content">
+      <div class="dashboard-section">
+        <div class="section-header">
+          <h2>Orders Management</h2>
+          <select id="orderFilter" class="order-filter" onchange="filterOrders()">
+            <option value="all">All Orders</option>
+            <option value="pending">Pending</option>
+            <option value="completed">Completed</option>
+            <option value="cancelled">Cancelled</option>
+          </select>
+        </div>
+        <div id="vendorOrdersList">
+          <div class="empty-state">Loading orders...</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Analytics Tab -->
+    <div id="analyticsTab" class="tab-content">
+      <div class="dashboard-section">
+        <h2>Sales Analytics</h2>
+        <div id="analyticsContent">
+          <div class="empty-state">Loading analytics...</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Settings Tab -->
+    <div id="settingsTab" class="tab-content">
+      <div class="dashboard-section">
+        <h2>Vendor Settings</h2>
+        <form onsubmit="updateSettings(event)">
+          <div class="form-group">
+            <label for="settingsBusinessName">Business Name</label>
+            <input type="text" id="settingsBusinessName" required>
+          </div>
+          <div class="form-group">
+            <label for="settingsEmail">Email</label>
+            <input type="email" id="settingsEmail" required>
+          </div>
+          <div class="form-group">
+            <label for="settingsPhone">Phone Number</label>
+            <input type="tel" id="settingsPhone">
+          </div>
+          <div class="form-group">
+            <label for="settingsAddress">Business Address</label>
+            <textarea id="settingsAddress" rows="3"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="settingsDescription">Business Description</label>
+            <textarea id="settingsDescription" rows="4"></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">Save Settings</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add/Edit Product Modal -->
+  <div id="productModal" class="modal-overlay hidden" onclick="closeProductModal()">
+    <div class="modal-content" onclick="event.stopPropagation()">
+      <div class="modal-header">
+        <h2 id="modalTitle">Add New Product</h2>
+        <button class="close-btn" onclick="closeProductModal()">✕</button>
+      </div>
+      <div class="modal-body">
+        <form onsubmit="saveProduct(event)">
+          <input type="hidden" id="editProductId">
+          <div class="form-group">
+            <label for="productName">Product Name</label>
+            <input type="text" id="productName" required>
+          </div>
+          <div class="form-group">
+            <label for="productCategory">Category</label>
+            <select id="productCategory" required>
+              <option value="">Select Category</option>
+              <option value="fruits">Fruits</option>
+              <option value="vegetables">Vegetables</option>
+              <option value="grains">Grains</option>
+              <option value="dairy">Dairy</option>
+              <option value="meat">Meat & Poultry</option>
+              <option value="seafood">Seafood</option>
+              <option value="spices">Spices</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="productPrice">Price ($)</label>
+            <input type="number" id="productPrice" step="0.01" min="0" required>
+          </div>
+          <div class="form-group">
+            <label for="productStock">Stock Quantity</label>
+            <input type="number" id="productStock" min="0" required>
+          </div>
+          <div class="form-group">
+            <label for="productUnit">Unit</label>
+            <select id="productUnit" required>
+              <option value="kg">Kilogram (kg)</option>
+              <option value="g">Gram (g)</option>
+              <option value="lb">Pound (lb)</option>
+              <option value="piece">Piece</option>
+              <option value="dozen">Dozen</option>
+              <option value="bunch">Bunch</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="productEmoji">Emoji Icon</label>
+            <input type="text" id="productEmoji" maxlength="2" placeholder="🍎">
+          </div>
+          <div class="form-group">
+            <label for="productDescription">Description</label>
+            <textarea id="productDescription" rows="4" required></textarea>
+          </div>
+          <div class="form-buttons">
+            <button type="submit" class="btn btn-primary">Save Product</button>
+            <button type="button" class="btn btn-secondary" onclick="closeProductModal()">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Order Details Modal -->
+  <div id="orderModal" class="modal-overlay hidden" onclick="closeOrderModal()">
+    <div class="modal-content" onclick="event.stopPropagation()">
+      <div class="modal-header">
+        <h2>Order Details</h2>
+        <button class="close-btn" onclick="closeOrderModal()">✕</button>
+      </div>
+      <div class="modal-body" id="orderModalContent"></div>
+    </div>
+  </div>
+
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-functions-compat.js"></script>
+
+  <script>
+    // Firebase Configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyALSSw0-d0F2-Zkj5aXVN1ip7FcMCouy8Q",
+      authDomain: "oja-place01.firebaseapp.com",
+      projectId: "oja-place01",
+      storageBucket: "oja-place01.firebasestorage.app",
+      messagingSenderId: "543711721814",
+      appId: "1:543711721814:web:6fafe8a7cf1db4b3493ef7"
+    };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.firestore();
+
+    let currentVendor = null;
+    let allProducts = [];
+    let allOrders = [];
+
+    // Show alert
+    function showAlert(msg, type = "success") {
+      const id = type === "success" ? "successAlert" : "errorAlert";
+      const el = document.getElementById(id);
+      if (el) {
+        el.textContent = msg;
+        el.classList.remove("hidden");
+        setTimeout(() => el.classList.add("hidden"), 4000);
+      }
+    }
+
+    // Logout
+    async function logout() {
+      await auth.signOut();
+      window.location.href = "vendor-auth.html";
+    }
+
+    // Tab Switching
+    function switchTab(tab) {
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+      
+      event.target.classList.add('active');
+      document.getElementById(`${tab}Tab`).classList.add('active');
+
+      if (tab === 'analytics') loadAnalytics();
+      if (tab === 'settings') loadSettings();
+    }
+
+    // Modal Functions
+    function showAddProductModal() {
+      document.getElementById('modalTitle').textContent = 'Add New Product';
+      document.getElementById('editProductId').value = '';
+      document.querySelector('#productModal form').reset();
+      document.getElementById('productModal').classList.remove('hidden');
+    }
+
+    function showEditProductModal(product) {
+      document.getElementById('modalTitle').textContent = 'Edit Product';
+      document.getElementById('editProductId').value = product.id;
+      document.getElementById('productName').value = product.name;
+      document.getElementById('productCategory').value = product.category || '';
+      document.getElementById('productPrice').value = product.price;
+      document.getElementById('productStock').value = product.stock;
+      document.getElementById('productUnit').value = product.unit || 'kg';
+      document.getElementById('productEmoji').value = product.emoji || '';
+      document.getElementById('productDescription').value = product.description || '';
+      document.getElementById('productModal').classList.remove('hidden');
+    }
+
+    function closeProductModal() {
+      document.getElementById('productModal').classList.add('hidden');
+    }
+
+    function closeOrderModal() {
+      document.getElementById('orderModal').classList.add('hidden');
+    }
+
+    // Load Dashboard Data
+    async function loadDashboard() {
+      if (!currentVendor) return;
+
+      try {
+        // Get vendor info
+        const vendorDoc = await db.collection("users").doc(currentVendor.uid).get();
+        if (vendorDoc.exists) {
+          document.getElementById("vendorName").textContent = vendorDoc.data().businessName;
+        }
+
+        // Load products
+        const productsSnap = await db.collection("products")
+          .where("vendorId", "==", currentVendor.uid)
+          .get();
+        
+        allProducts = productsSnap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        displayProducts(allProducts);
+
+        // Load orders
+        const ordersSnap = await db.collection("orders").get();
+        const allOrdersData = ordersSnap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        
+        // Filter orders containing vendor's products
+        allOrders = allOrdersData.filter(order => 
+          order.items && order.items.some(item => item.vendorId === currentVendor.uid)
+        );
+        
+        displayOrders(allOrders);
+        updateStats(allProducts, allOrders);
+      } catch (error) {
+        console.error("Error loading dashboard:", error);
+        showAlert("Failed to load dashboard", "error");
+      }
+    }
+
+    // Display Products
+    function displayProducts(products) {
+      const el = document.getElementById("vendorProductsList");
+      if (products.length === 0) {
+        el.innerHTML = '<div class="empty-state">No products found. Add your first product!</div>';
+        return;
+      }
+
+      el.innerHTML = `
+        <div class="product-grid">
+          ${products.map(p => `
+            <div class="product-card">
+              <div class="product-image">${p.emoji || "📦"}</div>
+              <div class="product-info">
+                <h4>${p.name}</h4>
+                <p><strong>Category:</strong> ${p.category || 'N/A'}</p>
+                <p><strong>Price:</strong> $${p.price.toFixed(2)} / ${p.unit || 'unit'}</p>
+                <p><strong>Stock:</strong> ${p.stock} ${p.unit || 'units'}</p>
+                <p><strong>Rating:</strong> ⭐ ${p.rating ? p.rating.toFixed(1) : "N/A"}</p>
+                <div class="action-buttons">
+                  <button class="btn btn-secondary btn-sm" onclick='showEditProductModal(${JSON.stringify(p).replace(/'/g, "&apos;")})'>Edit</button>
+                  <button class="btn btn-danger btn-sm" onclick="deleteProduct('${p.id}')">Delete</button>
+                </div>
+              </div>
+            </div>
+          `).join("")}
+        </div>
+      `;
+    }
+
+    // Filter Products
+    function filterProducts() {
+      const search = document.getElementById('productSearch').value.toLowerCase();
+      const filtered = allProducts.filter(p => 
+        p.name.toLowerCase().includes(search) || 
+        (p.category && p.category.toLowerCase().includes(search))
+      );
+      displayProducts(filtered);
+    }
+
+    // Display Orders
+    function displayOrders(orders) {
+      const el = document.getElementById("vendorOrdersList");
+      if (orders.length === 0) {
+        el.innerHTML = '<div class="empty-state">No orders yet.</div>';
+        return;
+      }
+
+      el.innerHTML = `
+        <table>
+          <thead>
+            <tr>
+              <th>Order ID</th>
+              <th>Customer</th>
+              <th>Items</th>
+              <th>Total</th>
+              <th>Status</th>
+              <th>Date</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${orders.map(order => {
+              const vendorItems = order.items.filter(item => item.vendorId === currentVendor.uid);
+              const total = vendorItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+              const date = order.createdAt ? new Date(order.createdAt.seconds * 1000).toLocaleDateString() : 'N/A';
+              return `
+                <tr>
+                  <td>#${order.id.substring(0, 8)}</td>
+                  <td>${order.customerEmail || order.customerName || 'N/A'}</td>
+                  <td>${vendorItems.length} item(s)</td>
+                  <td>$${total.toFixed(2)}</td>
+                  <td><span class="badge badge-${order.status}">${order.status}</span></td>
+                  <td>${date}</td>
+                  <td>
+                    <button class="btn btn-secondary btn-sm" onclick="showOrderDetails('${order.id}')">View</button>
+                  </td>
+                </tr>
+              `;
+            }).join("")}
+          </tbody>
+        </table>
+      `;
+    }
+
+    // Filter Orders
+    function filterOrders() {
+      const filter = document.getElementById('orderFilter').value;
+      const filtered = filter === 'all' ? allOrders : allOrders.filter(o => o.status === filter);
+      displayOrders(filtered);
+    }
+
+    // Show Order Details
+    function showOrderDetails(orderId) {
+      const order = allOrders.find(o => o.id === orderId);
+      if (!order) return;
+
+      const vendorItems = order.items.filter(item => item.vendorId === currentVendor.uid);
+      const total = vendorItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+
+      document.getElementById('orderModalContent').innerHTML = `
+        <div class="order-details">
+          <p><strong>Order ID:</strong> #${order.id}</p>
+          <p><strong>Customer:</strong> ${order.customerEmail || order.customerName || 'N/A'}</p>
+          <p><strong>Status:</strong> <span class="badge badge-${order.status}">${order.status}</span></p>
+          <p><strong>Delivery Address:</strong> ${order.deliveryAddress || 'N/A'}</p>
+        </div>
+        <h3 class="order-items-title">Your Items:</h3>
+        <table class="order-items-table">
+          <thead>
+            <tr>
+              <th>Product</th>
+              <th>Quantity</th>
+              <th>Price</th>
+              <th>Subtotal</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${vendorItems.map(item => `
+              <tr>
+                <td>${item.name}</td>
+                <td>${item.quantity}</td>
+                <td>$${item.price.toFixed(2)}</td>
+                <td>$${(item.price * item.quantity).toFixed(2)}</td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+        <div class="order-total">
+          <strong>Total: $${total.toFixed(2)}</strong>
+        </div>
+        <div class="order-actions">
+          <button class="btn btn-primary" onclick="updateOrderStatus('${orderId}', 'completed')">Mark Completed</button>
+          <button class="btn btn-danger" onclick="updateOrderStatus('${orderId}', 'cancelled')">Cancel Order</button>
+        </div>
+      `;
+      document.getElementById('orderModal').classList.remove('hidden');
+    }
+
+    // Update Order Status
+    async function updateOrderStatus(orderId, status) {
+      try {
+        await db.collection('orders').doc(orderId).update({ status });
+        showAlert(`Order ${status} successfully!`);
+        closeOrderModal();
+        loadDashboard();
+      } catch (error) {
+        console.error('Error updating order:', error);
+        showAlert('Failed to update order', 'error');
+      }
+    }
+
+    // Update Stats
+    function updateStats(products, orders) {
+      document.getElementById("totalProducts").textContent = products.length;
+      document.getElementById("totalOrders").textContent = orders.length;
+      
+      const pending = orders.filter(o => o.status === "pending").length;
+      document.getElementById("pendingOrders").textContent = pending;
+      
+      const earnings = orders.reduce((sum, order) => {
+        const vendorItems = order.items.filter(item => item.vendorId === currentVendor.uid);
+        return sum + vendorItems.reduce((s, item) => s + (item.price * item.quantity), 0);
+      }, 0);
+      document.getElementById("totalEarnings").textContent = `${earnings.toFixed(2)}`;
+
+      const lowStockCount = products.filter(p => p.stock < 10).length;
+      document.getElementById("lowStock").textContent = lowStockCount;
+
+      const avgRating = products.length > 0 
+        ? products.reduce((sum, p) => sum + (p.rating || 0), 0) / products.length 
+        : 0;
+      document.getElementById("avgRating").textContent = avgRating.toFixed(1);
+    }
+
+    // Save Product (Add or Edit)
+    async function saveProduct(e) {
+      e.preventDefault();
+      
+      const productId = document.getElementById("editProductId").value;
+      const name = document.getElementById("productName").value.trim();
+      const category = document.getElementById("productCategory").value;
+      const price = parseFloat(document.getElementById("productPrice").value);
+      const stock = parseInt(document.getElementById("productStock").value);
+      const unit = document.getElementById("productUnit").value;
+      const emoji = document.getElementById("productEmoji").value || "📦";
+      const description = document.getElementById("productDescription").value.trim();
+
+      try {
+        const vendorDoc = await db.collection("users").doc(currentVendor.uid).get();
+        const vendorName = vendorDoc.data().businessName;
+
+        const productData = {
+          name,
+          category,
+          price,
+          stock,
+          unit,
+          emoji,
+          description,
+          vendorId: currentVendor.uid,
+          vendorName,
+          updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+        };
+
+        if (productId) {
+          await db.collection("products").doc(productId).update(productData);
+          showAlert("Product updated successfully!");
+        } else {
+          productData.rating = 0;
+          productData.createdAt = firebase.firestore.FieldValue.serverTimestamp();
+          await db.collection("products").add(productData);
+          showAlert("Product added successfully!");
+        }
+
+        closeProductModal();
+        loadDashboard();
+      } catch (error) {
+        console.error("Error saving product:", error);
+        showAlert("Failed to save product", "error");
+      }
+    }
+
+    // Delete Product
+    async function deleteProduct(productId) {
+      if (!confirm("Are you sure you want to delete this product?")) return;
+
+      try {
+        await db.collection("products").doc(productId).delete();
+        showAlert("Product deleted successfully!");
+        loadDashboard();
+      } catch (error) {
+        console.error("Error deleting product:", error);
+        showAlert("Failed to delete product", "error");
+      }
+    }
+
+    // Load Analytics
+    function loadAnalytics() {
+      const el = document.getElementById('analyticsContent');
+      
+      if (allOrders.length === 0) {
+        el.innerHTML = '<div class="empty-state">No data available for analytics.</div>';
+        return;
+      }
+
+      const salesByProduct = {};
+      allOrders.forEach(order => {
+        order.items.filter(item => item.vendorId === currentVendor.uid).forEach(item => {
+          if (!salesByProduct[item.name]) {
+            salesByProduct[item.name] = { quantity: 0, revenue: 0 };
+          }
+          salesByProduct[item.name].quantity += item.quantity;
+          salesByProduct[item.name].revenue += item.price * item.quantity;
+        });
+      });
+
+      const topProducts = Object.entries(salesByProduct)
+        .sort((a, b) => b[1].revenue - a[1].revenue)
+        .slice(0, 5);
+
+      const monthlyRevenue = {};
+      allOrders.forEach(order => {
+        if (order.createdAt) {
+          const date = new Date(order.createdAt.seconds * 1000);
+          const month = date.toLocaleString('default', { month: 'short', year: 'numeric' });
+          const vendorItems = order.items.filter(item => item.vendorId === currentVendor.uid);
+          const revenue = vendorItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+          monthlyRevenue[month] = (monthlyRevenue[month] || 0) + revenue;
+        }
+      });
+
+      el.innerHTML = `
+        <div class="analytics-section">
+          <h3>Top Selling Products</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Product</th>
+                <th>Units Sold</th>
+                <th>Revenue</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${topProducts.map(([name, data]) => `
+                <tr>
+                  <td>${name}</td>
+                  <td>${data.quantity}</td>
+                  <td>${data.revenue.toFixed(2)}</td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+        </div>
+
+        <div class="analytics-section">
+          <h3>Revenue Overview</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Month</th>
+                <th>Revenue</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${Object.entries(monthlyRevenue).map(([month, revenue]) => `
+                <tr>
+                  <td>${month}</td>
+                  <td>${revenue.toFixed(2)}</td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+        </div>
+
+        <div class="analytics-stats">
+          <h3>Order Statistics</h3>
+          <p>Completed Orders: ${allOrders.filter(o => o.status === 'completed').length}</p>
+          <p>Pending Orders: ${allOrders.filter(o => o.status === 'pending').length}</p>
+          <p>Cancelled Orders: ${allOrders.filter(o => o.status === 'cancelled').length}</p>
+        </div>
+      `;
+    }
+
+    // Load Settings
+    async function loadSettings() {
+      try {
+        const vendorDoc = await db.collection("users").doc(currentVendor.uid).get();
+        if (vendorDoc.exists) {
+          const data = vendorDoc.data();
+          document.getElementById('settingsBusinessName').value = data.businessName || '';
+          document.getElementById('settingsEmail').value = data.email || '';
+          document.getElementById('settingsPhone').value = data.phone || '';
+          document.getElementById('settingsAddress').value = data.address || '';
+          document.getElementById('settingsDescription').value = data.description || '';
+        }
+      } catch (error) {
+        console.error('Error loading settings:', error);
+      }
+    }
+
+    // Update Settings
+    async function updateSettings(e) {
+      e.preventDefault();
+      
+      const businessName = document.getElementById('settingsBusinessName').value.trim();
+      const email = document.getElementById('settingsEmail').value.trim();
+      const phone = document.getElementById('settingsPhone').value.trim();
+      const address = document.getElementById('settingsAddress').value.trim();
+      const description = document.getElementById('settingsDescription').value.trim();
+
+      try {
+        await db.collection("users").doc(currentVendor.uid).update({
+          businessName,
+          email,
+          phone,
+          address,
+          description,
+          updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+        });
+
+        showAlert("Settings updated successfully!");
+        document.getElementById("vendorName").textContent = businessName;
+      } catch (error) {
+        console.error("Error updating settings:", error);
+        showAlert("Failed to update settings", "error");
+      }
+    }
+
+    // Auth Check
+    auth.onAuthStateChanged(async (user) => {
+      if (!user) {
+        window.location.href = "./vendor-auth.html";
+        return;
+      }
+
+      try {
+        const userDoc = await db.collection("users").doc(user.uid).get();
+        if (!userDoc.exists || userDoc.data().role !== "vendor") {
+          showAlert("Access denied. Vendor account required.", "error");
+          await auth.signOut();
+          window.location.href = "./vendor-auth.html";
+          return;
+        }
+
+        currentVendor = user;
+        loadDashboard();
+      } catch (error) {
+        console.error("Error checking auth:", error);
+        showAlert("Authentication error", "error");
+      }
+    });
+  </script>
+</body>
+</html>

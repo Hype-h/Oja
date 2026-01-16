@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Oja - Online Shopping for Electronics, Fashion, Home & More | African Marketplace</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Oja">
+  <meta property="og:title" content="Oja - Online Shopping for Electronics, Fashion, Home & More">
+  <meta property="og:description" content="Oja - Africa's leading online marketplace. Shop electronics, fashion, home goods from trusted vendors. Fast delivery, secure payments & easy returns.">
+  <meta name="description" content="Oja - Africa's leading online marketplace. Shop electronics, fashion, home goods from trusted vendors. Fast delivery, secure payments & easy returns.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="/">
+  <link rel="icon" type="image/x-icon" href="./public/favicon.ico">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <!-- NAVIGATION BAR -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="nav-logo">
+        <a href="./index.html">
+          <img src="./public/logo.png" alt="Oja Logo" class="nav-logo-img">
+        </a>
+      </div>
+
+      <div class="search-bar">
+        <label for="navSearch" class="sr-only">Search for products</label>
+        <input type="text" id="navSearch" class="search-input" placeholder="Search for products..." aria-label="Search for products">
+        <button class="search-btn" onclick="performSearch()" aria-label="Search">🔍</button>
+      </div>
+
+      <div class="nav-menu">
+        <a href="./index.html" class="nav-link">Home</a>
+        <a href="./products.html" class="nav-link">Shop</a>
+        
+        <div class="nav-auth-dropdown">
+          <button class="auth-btn" id="authToggleBtn" onclick="toggleAuthMenu()" aria-label="Authentication menu" aria-expanded="false" aria-controls="authDropdown">Sign In</button>
+          <div id="authDropdown" class="auth-dropdown-menu" role="menu" aria-hidden="true">
+            <a href="./customer-auth.html" class="dropdown-item" role="menuitem">🛍️ Customer Login</a>
+            <a href="./customer-auth.html" class="dropdown-item" role="menuitem">📝 Register</a>
+            <a href="./vendor-auth.html" class="dropdown-item" role="menuitem">🏪 Vendor</a>
+          </div>
+        </div>
+
+        <button class="cart-icon-wrapper" onclick="toggleCart()" aria-label="Shopping cart">
+          <span class="cart-icon" aria-hidden="true">🛒</span>
+          <span class="cart-badge" id="cartBadge" aria-label="Items in cart">0</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="category-bar">
+      <button class="category-btn" onclick="filterByCategory('all')">All Categories</button>
+      <button class="category-btn" onclick="filterByCategory('electronics')">📱 Electronics</button>
+      <button class="category-btn" onclick="filterByCategory('fashion')">👔 Fashion</button>
+      <button class="category-btn" onclick="filterByCategory('home')">🏠 Home</button>
+      <button class="category-btn" onclick="filterByCategory('beauty')">💄 Beauty</button>
+      <button class="category-btn" onclick="filterByCategory('sports')">⚽ Sports</button>
+    </div>
+  </nav>
+
+  <!-- ALERTS -->
+  <div class="alert alert-success" id="successAlert" role="alert" aria-live="polite"></div>
+  <div class="alert alert-error" id="errorAlert" role="alert" aria-live="assertive"></div>
+
+  <!-- HOME PAGE -->
+  <div data-page="home" class="active">
+    <section class="hero-slider">
+      <div class="slider-container">
+        <div class="slider-wrapper">
+          <div class="slider-slide active">
+            <img src="./public/slider-1.jpg" alt="Featured Products" class="slider-image">
+            <div class="slider-overlay">
+              <h2>Exclusive Deals</h2>
+              <p>Up to 50% Off on Selected Items</p>
+              <button class="btn btn-primary" onclick="showPage('products')">Shop Now</button>
+            </div>
+          </div>
+          <div class="slider-slide">
+            <img src="./public/slider-2.jpg" alt="Trusted Vendors" class="slider-image">
+            <div class="slider-overlay">
+              <h2>Trusted Vendors</h2>
+              <p>Verified sellers across Africa</p>
+              <button class="btn btn-primary" onclick="showPage('products')">Explore</button>
+            </div>
+          </div>
+          <div class="slider-slide">
+            <img src="./public/slider-3.jpg" alt="Fast Delivery" class="slider-image">
+            <div class="slider-overlay">
+              <h2>Fast Delivery</h2>
+              <p>Same-day delivery available in select areas</p>
+              <button class="btn btn-primary" onclick="showPage('products')">Shop Now</button>
+            </div>
+          </div>
+        </div>
+        <button class="slider-control prev" onclick="prevSlide()" aria-label="Previous slide">❮</button>
+        <button class="slider-control next" onclick="nextSlide()" aria-label="Next slide">❯</button>
+        <div class="slider-dots" role="navigation" aria-label="Slide navigation">
+          <button class="dot active" onclick="goToSlide(0)" aria-label="Go to slide 1"></button>
+          <button class="dot" onclick="goToSlide(1)" aria-label="Go to slide 2"></button>
+          <button class="dot" onclick="goToSlide(2)" aria-label="Go to slide 3"></button>
+        </div>
+      </div>
+    </section>
+
+    <section class="promotional-banners">
+      <div class="promo-card">
+        <h3>🚀 Fast Delivery</h3>
+        <p>Same-day delivery in major cities</p>
+      </div>
+      <div class="promo-card">
+        <h3>💳 Secure Payment</h3>
+        <p>Multiple payment options available</p>
+      </div>
+      <div class="promo-card">
+        <h3>🔄 Easy Returns</h3>
+        <p>30-day return guarantee</p>
+      </div>
+      <div class="promo-card">
+        <h3>⭐ Best Prices</h3>
+        <p>Price match guarantee on all products</p>
+      </div>
+    </section>
+
+    <section class="container">
+      <div class="section-header">
+        <h2>Featured Products</h2>
+        <button onclick="showPage('products')" class="view-all">View All →</button>
+      </div>
+      <div class="products-grid" id="homeProducts"></div>
+    </section>
+
+    <section class="ad-section vendor-ad">
+      <div class="ad-content">
+        <h2>Become a Seller on Oja</h2>
+        <p>Join thousands of successful vendors and grow your business</p>
+        <ul class="ad-benefits">
+          <li>✓ Reach millions of customers</li>
+          <li>✓ Easy inventory management</li>
+          <li>✓ Competitive commission rates</li>
+          <li>✓ 24/7 seller support</li>
+        </ul>
+        <button class="btn btn-white" onclick="window.location.href='vendor-auth.html'">Start Selling</button>
+      </div>
+      <div class="ad-image">
+        <div class="ad-image-placeholder" aria-hidden="true">📊</div>
+      </div>
+    </section>
+
+    <section class="newsletter-section">
+      <h2>Stay Updated with Oja</h2>
+      <p>Subscribe to get exclusive deals and new product updates</p>
+      <form class="newsletter-form" onsubmit="subscribeNewsletter(event)">
+        <label for="newsletterEmail" class="sr-only">Email address</label>
+        <input type="email" id="newsletterEmail" placeholder="Enter your email" required aria-label="Email address">
+        <button type="submit" class="btn btn-primary">Subscribe</button>
+      </form>
+    </section>
+
+    <footer class="footer">
+      <div class="footer-container">
+        <div class="footer-column">
+          <h4>About Oja</h4>
+          <ul>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Careers</a></li>
+            <li><a href="#">Press</a></li>
+            <li><a href="#">Blog</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4>Customer Service</h4>
+          <ul>
+            <li><a href="#">Contact Us</a></li>
+            <li><a href="#">FAQ</a></li>
+            <li><a href="#">Returns</a></li>
+            <li><a href="#">Shipping Info</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4>Policies</h4>
+          <ul>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Service</a></li>
+            <li><a href="#">Refund Policy</a></li>
+            <li><a href="#">Cookie Policy</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4>Follow Us</h4>
+          <div class="social-links">
+            <a href="#">Facebook</a>
+            <a href="#">Twitter</a>
+            <a href="#">Instagram</a>
+            <a href="#">LinkedIn</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Oja Marketplace. All rights reserved.</p>
+      </div>
+    </footer>
+  </div>
+
+  <!-- PRODUCTS PAGE -->
+  <div data-page="products" class="page-hidden">
+    <section class="products-header">
+      <h2 class="section-title">All Products</h2>
+      <div class="search-container">
+        <label for="productSearch" class="sr-only">Search products</label>
+        <input type="text" id="productSearch" class="search-box" placeholder="Search products..." aria-label="Search products">
+      </div>
+      
+      <section class="mt-10">
+      <h2 class="text-xl font-bold mb-4">Sponsored Products</h2>
+      <div id="ads-container" class="grid grid-cols-2 md:grid-cols-4 gap-4"></div>
+      </section>
+
+      <div class="filter-container">
+        <label for="categoryFilter" class="sr-only">Filter by category</label>
+        <select id="categoryFilter" class="filter-select" onchange="applyFilters()" aria-label="Filter products by category">
+          <option value="">All Categories</option>
+          <option value="electronics">Electronics</option>
+          <option value="fashion">Fashion</option>
+          <option value="home">Home & Kitchen</option>
+          <option value="beauty">Health & Beauty</option>
+          <option value="sports">Sports</option>
+        </select>
+        <label for="priceFilter" class="sr-only">Filter by price range</label>
+        <select id="priceFilter" class="filter-select" onchange="applyFilters()" aria-label="Filter products by price range">
+          <option value="">All Prices</option>
+          <option value="0-50">Under $50</option>
+          <option value="50-100">$50 - $100</option>
+          <option value="100-200">$100 - $200</option>
+          <option value="200+">$200+</option>
+        </select>
+      </div>
+    </section>
+    <section class="products-container">
+      <div class="products-grid" id="allProducts"></div>
+    </section>
+  </div>
+
+  <!-- LOGIN PAGE -->
+  <div data-page="login" class="page-hidden">
+    <main class="container padded">
+      <div class="auth-container">
+        <h2 class="auth-title">Welcome Back</h2>
+        <p class="auth-subtitle">Sign in to your account</p>
+        <form class="auth-form" onsubmit="handleLogin(event)">
+          <div class="form-group">
+            <label for="loginEmail">Email Address</label>
+            <input type="email" id="loginEmail" required placeholder="Enter your email">
+          </div>
+          <div class="form-group">
+            <label for="loginPassword">Password</label>
+            <input type="password" id="loginPassword" required placeholder="Enter your password">
+          </div>
+          <button type="submit" class="btn btn-primary full-width">Sign In</button>
+        </form>
+        <div class="auth-link">
+          Don't have an account? <a href="#" onclick="showPage('register'); return false;">Sign Up</a>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- REGISTER PAGE -->
+  <div data-page="register" class="page-hidden">
+    <main class="container padded">
+      <div class="auth-container">
+        <h2 class="auth-title">Create Account</h2>
+        <p class="auth-subtitle">Join Oja Marketplace today</p>
+        <form class="auth-form" onsubmit="handleRegister(event)">
+          <div class="form-group">
+            <label for="registerName">Full Name</label>
+            <input type="text" id="registerName" required placeholder="Enter your full name">
+          </div>
+          <div class="form-group">
+            <label for="registerEmail">Email Address</label>
+            <input type="email" id="registerEmail" required placeholder="Enter your email">
+          </div>
+          <div class="form-group">
+            <label for="registerPassword">Password</label>
+            <input type="password" id="registerPassword" required minlength="6" placeholder="Minimum 6 characters">
+          </div>
+          <button type="submit" class="btn btn-primary full-width">Create Account</button>
+        </form>
+        <div class="auth-link">
+          Already have an account? <a href="#" onclick="showPage('login'); return false;">Sign In</a>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- CART SIDEBAR -->
+  <aside class="cart-sidebar" id="cartSidebar" aria-label="Shopping cart">
+    <div class="cart-header">
+      <h3>Shopping Cart</h3>
+      <button class="close-btn" onclick="toggleCart()" aria-label="Close cart">✕</button>
+    </div>
+    <div class="cart-items-container" id="cartItemsContainer"></div>
+    <div class="cart-empty-state active" id="cartEmpty">
+      <p class="cart-empty-icon" aria-hidden="true">🛒</p>
+      <p>Your cart is empty</p>
+      <button class="btn btn-primary" onclick="showPage('products'); toggleCart();">Continue Shopping</button>
+    </div>
+    <div class="cart-footer" id="cartFooter">
+      <div class="cart-summary">
+        <div class="summary-row">
+          <span>Subtotal:</span>
+          <span id="subtotal">$0.00</span>
+        </div>
+        <div class="summary-row">
+          <span>Shipping:</span>
+          <span id="shipping">$0.00</span>
+        </div>
+        <div class="summary-row total">
+          <span>Total:</span>
+          <span id="cartTotal">$0.00</span>
+        </div>
+      </div>
+      <button class="btn btn-primary full-width" onclick="checkout()">Proceed to Checkout</button>
+      <button class="btn btn-secondary full-width" onclick="toggleCart()">Continue Shopping</button>
+    </div>
+  </aside>
+
+  <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+
+  <!-- Firebase Scripts -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+  <script src="./js/ads.js"></script>
+
+  <script>
+    // Firebase Configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyALSSw0-d0F2-Zkj5aXVN1ip7FcMCouy8Q",
+      authDomain: "oja-place01.firebaseapp.com",
+      projectId: "oja-place01",
+      storageBucket: "oja-place01.firebasestorage.app",
+      messagingSenderId: "543711721814",
+      appId: "1:543711721814:web:6fafe8a7cf1db4b3493ef7"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.firestore();
+
+    // Global Variables
+    let currentSlideIndex = 0;
+    let cart = [];
+    let allProducts = [
+      {id: '1', name: 'Wireless Headphones', price: 79.99, emoji: '🎧', vendorName: 'AudioTech', rating: '4.5', category: 'electronics'},
+      {id: '2', name: 'Smart Watch', price: 199.99, emoji: '⌚', vendorName: 'TechWear', rating: '4.8', category: 'electronics'},
+      {id: '3', name: 'Running Shoes', price: 89.99, emoji: '👟', vendorName: 'SportStyle', rating: '4.6', category: 'fashion'},
+      {id: '4', name: 'Coffee Maker', price: 49.99, emoji: '☕', vendorName: 'HomeEssentials', rating: '4.3', category: 'home'},
+      {id: '5', name: 'Laptop Backpack', price: 39.99, emoji: '🎒', vendorName: 'TravelGear', rating: '4.7', category: 'fashion'},
+      {id: '6', name: 'Bluetooth Speaker', price: 59.99, emoji: '🔊', vendorName: 'SoundWave', rating: '4.4', category: 'electronics'},
+      {id: '7', name: 'Yoga Mat', price: 29.99, emoji: '🧘', vendorName: 'FitLife', rating: '4.5', category: 'sports'},
+      {id: '8', name: 'Sunglasses', price: 69.99, emoji: '🕶️', vendorName: 'StylePro', rating: '4.6', category: 'fashion'},
+      {id: '9', name: 'Water Bottle', price: 19.99, emoji: '💧', vendorName: 'HydroFlow', rating: '4.8', category: 'sports'},
+      {id: '10', name: 'Desk Lamp', price: 34.99, emoji: '💡', vendorName: 'BrightHome', rating: '4.2', category: 'home'},
+      {id: '11', name: 'Power Bank', price: 44.99, emoji: '🔋', vendorName: 'PowerBank Pro', rating: '4.7', category: 'electronics'},
+      {id: '12', name: 'Face Mask Set', price: 24.99, emoji: '🧴', vendorName: 'BeautyGlow', rating: '4.9', category: 'beauty'}
+    ];
+    let filteredProducts = [...allProducts];
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', function() {
+      displayHomeProducts();
+      displayAllProducts();
+      updateCart();
+      setInterval(nextSlide, 6000);
+      
+      // Product search with debouncing
+      let searchTimeout;
+      document.getElementById('productSearch').addEventListener('keyup', function() {
+        clearTimeout(searchTimeout);
+        searchTimeout = setTimeout(searchProducts, 300);
+      });
+
+      // Nav search enter key
+      document.getElementById('navSearch').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') performSearch();
+      });
+      
+      // Close dropdown when clicking outside
+      document.addEventListener('click', function(e) {
+        const dropdown = document.getElementById('authDropdown');
+        const authBtn = document.getElementById('authToggleBtn');
+        if (!e.target.closest('.nav-auth-dropdown')) {
+          dropdown.style.display = 'none';
+          authBtn.setAttribute('aria-expanded', 'false');
+        }
+      });
+    });
+
+    // Slider Functions
+    function nextSlide() {
+      const slides = document.querySelectorAll('.slider-slide');
+      currentSlideIndex = (currentSlideIndex + 1) % slides.length;
+      updateSlider();
+    }
+
+    function prevSlide() {
+      const slides = document.querySelectorAll('.slider-slide');
+      currentSlideIndex = (currentSlideIndex - 1 + slides.length) % slides.length;
+      updateSlider();
+    }
+
+    function goToSlide(n) {
+      currentSlideIndex = n;
+      updateSlider();
+    }
+
+    function updateSlider() {
+      const slides = document.querySelectorAll('.slider-slide');
+      const dots = document.querySelectorAll('.dot');
+      slides.forEach((slide, i) => slide.classList.toggle('active', i === currentSlideIndex));
+      dots.forEach((dot, i) => {
+        dot.classList.toggle('active', i === currentSlideIndex);
+        dot.setAttribute('aria-label', `Go to slide ${i + 1}${i === currentSlideIndex ? ' (current)' : ''}`);
+      });
+    }
+
+    // Navigation Functions
+    function showPage(page) {
+      document.querySelectorAll('[data-page]').forEach(el => {
+        el.classList.remove('active');
+        el.classList.add('page-hidden');
+      });
+      const targetPage = document.querySelector(`[data-page="${page}"]`);
+      if (targetPage) {
+        targetPage.classList.add('active');
+        targetPage.classList.remove('page-hidden');
+      }
+      window.scrollTo(0, 0);
+    }
+
+    function toggleAuthMenu() {
+      const menu = document.getElementById('authDropdown');
+      const btn = document.getElementById('authToggleBtn');
+      const isOpen = menu.style.display === 'block';
+      menu.style.display = isOpen ? 'none' : 'block';
+      btn.setAttribute('aria-expanded', !isOpen);
+      menu.setAttribute('aria-hidden', isOpen);
+    }
+
+    function performSearch() {
+      const term = document.getElementById('navSearch').value.trim().toLowerCase();
+      if (!term) return showAlert('Please enter a search term', 'error');
+      filteredProducts = allProducts.filter(p => 
+        p.name.toLowerCase().includes(term) || p.category.includes(term)
+      );
+      displayAllProducts();
+      showPage('products');
+    }
+
+    function searchProducts() {
+      const term = document.getElementById('productSearch').value.trim().toLowerCase();
+      filteredProducts = allProducts.filter(p => 
+        p.name.toLowerCase().includes(term) || p.category.includes(term)
+      );
+      displayAllProducts();
+    }
+
+    function filterByCategory(category) {
+      filteredProducts = category === 'all' ? [...allProducts] : allProducts.filter(p => p.category === category);
+      displayAllProducts();
+      showPage('products');
+    }
+
+    function applyFilters() {
+      const category = document.getElementById('categoryFilter').value;
+      const price = document.getElementById('priceFilter').value;
+      let products = [...allProducts];
+      
+      if (category) products = products.filter(p => p.category === category);
+      if (price) {
+        if (price === '0-50') products = products.filter(p => p.price < 50);
+        else if (price === '50-100') products = products.filter(p => p.price >= 50 && p.price < 100);
+        else if (price === '100-200') products = products.filter(p => p.price >= 100 && p.price < 200);
+        else if (price === '200+') products = products.filter(p => p.price >= 200);
+      }
+      
+      filteredProducts = products;
+      displayAllProducts();
+    }
+
+    // Display Functions
+    function displayHomeProducts() {
+      const container = document.getElementById('homeProducts');
+      container.innerHTML = allProducts.slice(0, 6).map(createProductCard).join('');
+    }
+
+    function displayAllProducts() {
+      const container = document.getElementById('allProducts');
+      container.innerHTML = filteredProducts.length ? 
+        filteredProducts.map(createProductCard).join('') : 
+        '<div class="empty-state">No products found</div>';
+    }
+
+    function createProductCard(p) {
+      return `
+        <article class="product-card">
+          <div class="product-image" aria-hidden="true">${p.emoji}</div>
+          <div class="product-info">
+            <h3 class="product-title">${p.name}</h3>
+            <p class="product-vendor">by ${p.vendorName}</p>
+            <div class="product-price">₦${p.price.toFixed(2)}</div>
+            <div class="product-rating" aria-label="Rating ${p.rating} out of 5">⭐ ${p.rating}/5</div>
+            <button class="btn btn-primary full-width" onclick="addToCart('${p.id}')" aria-label="Add ${p.name} to cart">Add to Cart</button>
+          </div>
+        </article>
+      `;
+    }
+
+    // Cart Functions
+    function addToCart(id) {
+      const product = allProducts.find(p => p.id === id);
+      if (!product) return;
+      
+      const existing = cart.find(item => item.id === id);
+      if (existing) existing.quantity++;
+      else cart.push({...product, quantity: 1});
+      
+      updateCart();
+      showAlert(product.name + ' added to cart!', 'success');
+    }
+
+    function removeFromCart(id) {
+      cart = cart.filter(item => item.id !== id);
+      updateCart();
+    }
+
+    function updateCart() {
+      const badge = document.getElementById('cartBadge');
+      const empty = document.getElementById('cartEmpty');
+      const footer = document.getElementById('cartFooter');
+      const container = document.getElementById('cartItemsContainer');
+      
+      const total = cart.reduce((sum, item) => sum + item.quantity, 0);
+      badge.textContent = total;
+      badge.style.display = total > 0 ? 'flex' : 'none';
+      badge.setAttribute('aria-label', `${total} item${total !== 1 ? 's' : ''} in cart`);
+      
+      if (cart.length === 0) {
+        empty.classList.add('active');
+        footer.style.display = 'none';
+        container.innerHTML = '';
+      } else {
+        empty.classList.remove('active');
+        footer.style.display = 'block';
+        container.innerHTML = cart.map(item => `
+          <div class="cart-item">
+            <div class="product-image cart-item-image" aria-hidden="true">${item.emoji}</div>
+            <div class="cart-item-info">
+              <div class="cart-item-name">${item.name}</div>
+              <div class="cart-item-price">$${item.price.toFixed(2)} × ${item.quantity}</div>
+            </div>
+            <button class="btn btn-danger btn-sm" onclick="removeFromCart('${item.id}')" aria-label="Remove ${item.name} from cart">Remove</button>
+          </div>
+        `).join('');
+        
+        const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+        document.getElementById('subtotal').textContent = '$' + subtotal.toFixed(2);
+        document.getElementById('cartTotal').textContent = '$' + subtotal.toFixed(2);
+      }
+    }
+
+    function toggleCart() {
+      const sidebar = document.getElementById('cartSidebar');
+      const overlay = document.getElementById('cartOverlay');
+      sidebar.classList.toggle('active');
+      overlay.classList.toggle('active');
+      
+      // Manage focus
+      if (sidebar.classList.contains('active')) {
+        sidebar.querySelector('.close-btn').focus();
+      }
+    }
+
+    function checkout() {
+      if (cart.length === 0) return showAlert('Your cart is empty', 'error');
+      const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+      showAlert(`Order placed! Total: $${total.toFixed(2)}`, 'success');
+      cart = [];
+      updateCart();
+      toggleCart();
+    }
+
+    // Auth Functions
+    function handleLogin(e) {
+      e.preventDefault();
+      const email = document.getElementById('loginEmail').value;
+      const password = document.getElementById('loginPassword').value;
+      auth.signInWithEmailAndPassword(email, password)
+        .then(() => {
+          showAlert('Login successful!', 'success');
+          showPage('home');
+        })
+        .catch(error => showAlert(error.message, 'error'));
+    }
+
+    function handleRegister(e) {
+      e.preventDefault();
+      const name = document.getElementById('registerName').value;
+      const email = document.getElementById('registerEmail').value;
+      const password = document.getElementById('registerPassword').value;
+      auth.createUserWithEmailAndPassword(email, password)
+        .then(userCredential => userCredential.user.updateProfile({displayName: name}))
+        .then(() => {
+          showAlert('Account created successfully!', 'success');
+          showPage('home');
+        })
+        .catch(error => showAlert(error.message, 'error'));
+    }
+
+    // Utility Functions
+    function subscribeNewsletter(e) {
+      e.preventDefault();
+      const email = e.target.querySelector('input[type="email"]').value;
+      showAlert('Thank you for subscribing!', 'success');
+      e.target.reset();
+    }
+
+    function showAlert(message, type) {
+      const alertEl = document.getElementById(type === 'success' ? 'successAlert' : 'errorAlert');
+      alertEl.textContent = message;
+      alertEl.classList.add('active');
+      setTimeout(() => alertEl.classList.remove('active'), 3000);
+    }
+  </script>
+</body>
+</html>

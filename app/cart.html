@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart - Oja Marketplace</title>
+    <!-- Added favicon link -->
+    <link rel="icon" type="image/x-icon" href="./public/favicon.ico">
+    <link rel="stylesheet" href="./checkout.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <!-- Updated logo to use image from public folder -->
+                <a href="./index.html"><img src="./public/logo.png" alt="Oja Logo" style="height: 40px; width: auto;"></a>
+            </div>
+            <div class="nav-menu">
+                <a href="./index.html" class="nav-link">Home</a>
+                <a href="./products.html" class="nav-link">Products</a>
+                <a href="./cart.html" class="nav-link active">Cart <span id="cart-count" class="cart-badge">0</span></a>
+                <button id="user-menu-btn" class="nav-link">Account</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Promotional Banner -->
+    <div style="background: linear-gradient(135deg, #ff9800 0%, #f57c00 100%); color: white; padding: 1.5rem; text-align: center; margin-bottom: 2rem;">
+        <p style="margin: 0;">Free shipping on orders over $50! Use code: FREESHIP</p>
+    </div>
+
+    <!-- Cart Header -->
+    <div class="cart-header">
+        <h1>Shopping Cart</h1>
+        <p id="cart-item-count">0 items</p>
+    </div>
+
+    <!-- Cart Content -->
+    <div class="cart-content">
+        <!-- Cart Items -->
+        <div class="cart-items-section">
+            <div id="cart-items" class="cart-items">
+                <!-- Cart items loaded by JavaScript -->
+            </div>
+
+            <!-- Empty Cart -->
+            <div id="empty-cart" class="empty-state" style="display: none;">
+                <p>Your cart is empty</p>
+                <a href="./products.html" class="btn-primary">Continue Shopping</a>
+            </div>
+        </div>
+
+        <!-- Cart Summary -->
+        <div id="cart-summary" class="cart-summary" style="display: none;">
+            <h2>Order Summary</h2>
+
+            <!-- Vendor Groups -->
+            <div id="vendor-groups" class="vendor-groups">
+                <!-- Grouped by vendor -->
+            </div>
+
+            <!-- Totals -->
+            <div class="summary-section">
+                <div class="summary-row">
+                    <span>Subtotal:</span>
+                    <span id="subtotal">$0.00</span>
+                </div>
+                <div class="summary-row">
+                    <span>Shipping:</span>
+                    <span id="shipping">$0.00</span>
+                </div>
+                <div class="summary-row">
+                    <span>Tax:</span>
+                    <span id="tax">$0.00</span>
+                </div>
+                <div class="summary-row total">
+                    <span>Total:</span>
+                    <span id="total">$0.00</span>
+                </div>
+            </div>
+
+            <!-- Checkout Section -->
+            <div class="checkout-section">
+                <label class="checkbox">
+                    <input type="checkbox" id="terms-agree">
+                    <span>I agree to the terms and conditions</span>
+                </label>
+                <button id="checkout-btn" class="btn-primary btn-large">Proceed to Checkout</button>
+                <a href="./products.html" class="btn-secondary btn-large">Continue Shopping</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- User Menu Modal -->
+    <div id="user-menu-modal" class="modal" style="display: none;">
+        <div class="modal-content user-menu">
+            <span class="close">&times;</span>
+            <div id="user-logged-out" class="menu-section">
+                <a href="login.html" class="btn-primary" style="width: 100%; margin-bottom: 10px;">Login</a>
+                <a href="register.html" class="btn-secondary" style="width: 100%;">Sign Up</a>
+            </div>
+            <div id="user-logged-in" class="menu-section" style="display: none;">
+                <p id="user-email"></p>
+                <a href="./customer-dashboard.html" class="menu-link">My Dashboard</a>
+                <a href="my-orders.html" class="menu-link">My Orders</a>
+                <button id="logout-btn" class="menu-link" style="width: 100%; text-align: left;">Logout</button>
+            </div>
+        </div>
+    </div>
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-functions-compat.js"></script>
+    <script src="./js/firebase-config.js"></script>
+    <script src="./js/cart.js"></script>
+</body>
+</html>

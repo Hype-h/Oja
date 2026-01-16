@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products - Oja Marketplace</title>
+    <link rel="icon" type="image/x-icon" href="./public/favicon.ico">
+    <link rel="stylesheet" href="./checkout.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="./customer-dashboard.html">
+                    <img src="./public/logo.png" alt="Oja Logo" class="logo-img">
+                </a>
+            </div>
+            <div class="nav-menu">
+                <a href="./customer-dashboard.html" class="nav-link">Home</a>
+                <a href="./products.html" class="nav-link active">Products</a>
+                <a href="cart.html" class="nav-link">Cart <span id="cart-count" class="cart-badge">0</span></a>
+                <button id="user-menu-btn" class="nav-link">Account</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Search & Filter -->
+    <div class="products-header">
+        <div class="search-container">
+            <input type="text" id="search-input" placeholder="Search products..." class="search-box" aria-label="Search products">
+            <button id="search-btn" class="btn-primary">Search</button>
+            <button id="clear-filters-btn" class="btn-secondary clear-filters-hidden">Clear Filters</button>
+        </div>
+        <div class="filter-container">
+            <label for="category-filter" class="visually-hidden">Filter by category</label>
+            <select id="category-filter" class="filter-select" aria-label="Filter by category">
+                <option value="">All Categories</option>
+                <option value="electronics">📱 Electronics</option>
+                <option value="fashion">👔 Fashion</option>
+                <option value="home">🏠 Home & Garden</option>
+                <option value="beauty">💄 Beauty</option>
+                <option value="sports">⚽ Sports</option>
+                <option value="books">📚 Books</option>
+                <option value="toys">🧸 Toys</option>
+                <option value="food">🍎 Food & Groceries</option>
+            </select>
+            
+            <label for="price-filter" class="visually-hidden">Filter by price range</label>
+            <select id="price-filter" class="filter-select" aria-label="Filter by price">
+                <option value="">All Prices</option>
+                <option value="0-50">Under $50</option>
+                <option value="50-100">$50 - $100</option>
+                <option value="100-500">$100 - $500</option>
+                <option value="500+">$500+</option>
+            </select>
+            
+            <label for="sort-filter" class="visually-hidden">Sort products</label>
+            <select id="sort-filter" class="filter-select" aria-label="Sort products">
+                <option value="newest">Newest First</option>
+                <option value="price-low">Price: Low to High</option>
+                <option value="price-high">Price: High to Low</option>
+                <option value="rating">Highest Rated</option>
+                <option value="popular">Most Popular</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Advertisement Banner Section -->
+    <div class="ad-banner">
+        <h2>🎉 Exclusive Offers</h2>
+        <p>Get up to 40% off on selected items. Limited time only!</p>
+        <button class="btn btn-white" onclick="window.location.href='#sale'">Shop Sale Items</button>
+    </div>
+
+    <!-- Products Grid -->
+    <div class="products-container">
+        <div id="products-grid" class="products-grid">
+            <!-- Products loaded by JavaScript -->
+        </div>
+    </div>
+
+    <!-- Loading State -->
+    <div id="loading" class="loading-spinner">
+        <div class="spinner"></div>
+        <p>Loading products...</p>
+    </div>
+
+    <!-- Empty State -->
+    <div id="empty-state" class="empty-state empty-state-hidden">
+        <p>No products found. Try adjusting your filters.</p>
+        <button onclick="clearAllFilters()" class="btn btn-primary mt-2">Clear All Filters</button>
+    </div>
+
+    <!-- Pagination -->
+    <div id="pagination" class="pagination pagination-hidden">
+        <button id="prev-btn" class="btn btn-secondary" disabled>Previous</button>
+        <span id="page-info" class="page-info"></span>
+        <button id="next-btn" class="btn btn-secondary">Next</button>
+    </div>
+
+    <!-- User Menu Modal -->
+    <div id="user-menu-modal" class="modal">
+        <div class="modal-content user-menu">
+            <span class="close">&times;</span>
+            <div id="user-logged-out" class="menu-section">
+                <h3>Welcome to Oja</h3>
+                <p>Sign in to access your account</p>
+                <a href="customer-auth.html" class="btn-primary user-menu-btn">Sign In</a>
+                <a href="customer-auth.html?register=true" class="btn-secondary user-menu-btn">Create Account</a>
+            </div>
+            <div id="user-logged-in" class="menu-section menu-section-hidden">
+                <h3>My Account</h3>
+                <p id="user-email" class="user-email-text"></p>
+                <a href="customer-dashboard.html" class="menu-link">📊 My Dashboard</a>
+                <a href="customer-orders.html" class="menu-link">📦 My Orders</a>
+                <a href="customer-reviews.html" class="menu-link">⭐ My Reviews</a>
+                <a href="customer-addresses.html" class="menu-link">📍 My Addresses</a>
+                <hr class="menu-divider">
+                <button id="logout-btn" class="menu-link logout-btn">🚪 Logout</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
+    <script>
+        // ====== FIREBASE CONFIGURATION ======
+        const firebaseConfig = {
+          apiKey: "AIzaSyALSSw0-d0F2-Zkj5aXVN1ip7FcMCouy8Q",
+          authDomain: "oja-place01.firebaseapp.com",
+          projectId: "oja-place01",
+          storageBucket: "oja-place01.firebasestorage.app",
+          messagingSenderId: "543711721814",
+          appId: "1:543711721814:web:6fafe8a7cf1db4b3493ef7"
+        };
+
+        // Initialize Firebase
+        const app = firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+
+        // ====== GLOBAL VARIABLES ======
+        let currentUser = null;
+        let allProducts = [];
+        let filteredProducts = [];
+        let currentPage = 1;
+        const productsPerPage = 12;
+        let currentFilters = {
+            search: '',
+            category: '',
+            price: '',
+            sort: 'newest'
+        };
+
+        // ====== DOM ELEMENTS ======
+        const elements = {
+            productsGrid: document.getElementById('products-grid'),
+            loading: document.getElementById('loading'),
+            emptyState: document.getElementById('empty-state'),
+            searchInput: document.getElementById('search-input'),
+            searchBtn: document.getElementById('search-btn'),
+            clearFiltersBtn: document.getElementById('clear-filters-btn'),
+            categoryFilter: document.getElementById('category-filter'),
+            priceFilter: document.getElementById('price-filter'),
+            sortFilter: document.getElementById('sort-filter'),
+            cartCount: document.getElementById('cart-count'),
+            userMenuBtn: document.getElementById('user-menu-btn'),
+            userMenuModal: document.getElementById('user-menu-modal'),
+            closeModalBtn: document.querySelector('.close'),
+            userLoggedOut: document.getElementById('user-logged-out'),
+            userLoggedIn: document.getElementById('user-logged-in'),
+            userEmail: document.getElementById('user-email'),
+            logoutBtn: document.getElementById('logout-btn'),
+            pagination: document.getElementById('pagination'),
+            prevBtn: document.getElementById('prev-btn'),
+            nextBtn: document.getElementById('next-btn'),
+            pageInfo: document.getElementById('page-info')
+        };
+
+        // ====== INITIALIZATION ======
+        document.addEventListener('DOMContentLoaded', async () => {
+            setupEventListeners();
+            checkAuthState();
+            loadCartFromStorage();
+            await loadProducts();
+            
+            // Load URL parameters
+            loadFiltersFromURL();
+        });
+
+        // ====== PRODUCT LOADING ======
+        async function loadProducts() {
+            showLoading(true);
+            
+            try {
+                let query = db.collection('products').where('status', '==', 'active');
+                
+                // Apply category filter if set
+                if (currentFilters.category) {
+                    query = query.where('category', '==', currentFilters.category);
+                }
+                
+                const snapshot = await query.get();
+                
+                allProducts = snapshot.docs.map(doc => ({
+                    id: doc.id,
+                    ...doc.data()
+                }));
+                
+                applyFilters();
+            } catch (error) {
+                console.error('Error loading products:', error);
+                showError('Failed to load products');
+                
+                // Load sample products for demo
+                loadSampleProducts();
+            } finally {
+                showLoading(false);
+            }
+        }
+
+        function loadSampleProducts() {
+            allProducts = [
+                {
+                    id: '1',
+                    name: 'Smartphone X Pro',
+                    description: 'Latest smartphone with advanced features',
+                    price: 799.99,
+                    oldPrice: 899.99,
+                    category: 'electronics',
+                    image: 'https://placehold.co/400x300/e5e7eb/6b7280?text=Smartphone+X+Pro',
+                    vendorName: 'TechGadgets Inc.',
+                    rating: 4.5,
+                    reviewCount: 128,
+                    stock: 50,
+                    createdAt: new Date()
+                },
+                {
+                    id: '2',
+                    name: 'Wireless Headphones',
+                    description: 'Noise cancelling wireless headphones',
+                    price: 149.99,
+                    category: 'electronics',
+                    image: 'https://placehold.co/400x300/e5e7eb/6b7280?text=Wireless+Headphones',
+                    vendorName: 'Audio Masters',
+                    rating: 4.2,
+                    reviewCount: 89,
+                    stock: 100,
+                    createdAt: new Date(Date.now() - 86400000)
+                },
+                {
+                    id: '3',
+                    name: 'Designer T-Shirt',
+                    description: 'Premium cotton t-shirt with unique design',
+                    price: 29.99,
+                    category: 'fashion',
+                    image: 'https://placehold.co/400x300/e5e7eb/6b7280?text=Designer+T-Shirt',
+                    vendorName: 'Fashion Hub',
+                    rating: 4.8,
+                    reviewCount: 42,
+                    stock: 200,
+                    createdAt: new Date(Date.now() - 172800000)
+                },
+                {
+                    id: '4',
+                    name: 'Coffee Maker',
+                    description: 'Automatic coffee maker with timer',
+                    price: 89.99,
+                    category: 'home',
+                    image: 'https://placehold.co/400x300/e5e7eb/6b7280?text=Coffee+Maker',
+                    vendorName: 'Home Essentials',
+                    rating: 4.3,
+                    reviewCount: 56,
+                    stock: 75,
+                    createdAt: new Date(Date.now() - 259200000)
+                },
+                {
+                    id: '5',
+                    name: 'Premium Skincare Set',
+                    description: 'Complete skincare routine kit',
+                    price: 129.99,
+                    oldPrice: 159.99,
+                    category: 'beauty',
+                    image: 'https://placehold.co/400x300/e5e7eb/6b7280?text=Skincare+Set',
+                    vendorName: 'Beauty Labs',
+                    rating: 4.7,
+                    reviewCount: 94,
+                    stock: 30,
+                    createdAt: new Date(Date.now() - 345600000)
+                },
+                {
+                    id: '6',
+                    name: 'Yoga Mat',
+                    description: 'Non-slip premium yoga mat',
+                    price: 39.99,
+                    category: 'sports',
+                    image: 'https://placehold.co/400x300/e5e7eb/6b7280?text=Yoga+Mat',
+                    vendorName: 'Fit Gear',
+                    rating: 4.6,
+                    reviewCount: 67,
+                    stock: 150,
+                    createdAt: new Date(Date.now() - 432000000)
+                }
+            ];
+            
+            applyFilters();
+        }
+
+        // ====== FILTERING FUNCTIONS ======
+        function applyFilters() {
+            filteredProducts = [...allProducts];
+            
+            // Apply search filter
+            if (currentFilters.search) {
+                const searchTerm = currentFilters.search.toLowerCase();
+                filteredProducts = filteredProducts.filter(product =>
+                    product.name.toLowerCase().includes(searchTerm) ||
+                    product.description.toLowerCase().includes(searchTerm) ||
+                    product.category.toLowerCase().includes(searchTerm)
+                );
+            }
+            
+            // Apply price filter
+            if (currentFilters.price) {
+                filteredProducts = filteredProducts.filter(product => {
+                    const price = product.price || 0;
+                    switch (currentFilters.price) {
+                        case '0-50': return price <= 50;
+                        case '50-100': return price > 50 && price <= 100;
+                        case '100-500': return price > 100 && price <= 500;
+                        case '500+': return price > 500;
+                        default: return true;
+                    }
+                });
+            }
+            
+            // Apply sorting
+            filteredProducts.sort((a, b) => {
+                switch (currentFilters.sort) {
+                    case 'price-low':
+                        return (a.price || 0) - (b.price || 0);
+                    case 'price-high':
+                        return (b.price || 0) - (a.price || 0);
+                    case 'rating':
+                        return (b.rating || 0) - (a.rating || 0);
+                    case 'popular':
+                        return (b.reviewCount || 0) - (a.reviewCount || 0);
+                    default:
+                        return (b.createdAt || 0) - (a.createdAt || 0);
+                }
+            });
+            
+            updateURLFilters();
+            displayProducts();
+            updatePagination();
+        }
+
+        function loadFiltersFromURL() {
+            const urlParams = new URLSearchParams(window.location.search);
+            
+            const search = urlParams.get('search') || '';
+            const category = urlParams.get('category') || '';
+            const price = urlParams.get('price') || '';
+            const sort = urlParams.get('sort') || 'newest';
+            
+            if (search) {
+                elements.searchInput.value = search;
+                currentFilters.search = search;
+            }
+            
+            if (category) {
+                elements.categoryFilter.value = category;
+                currentFilters.category = category;
+            }
+            
+            if (price) {
+                elements.priceFilter.value = price;
+                currentFilters.price = price;
+            }
+            
+            if (sort) {
+                elements.sortFilter.value = sort;
+                currentFilters.sort = sort;
+            }
+            
+            // Show clear filters button if any filter is active
+            if (search || category || price) {
+                elements.clearFiltersBtn.classList.remove('clear-filters-hidden');
+            }
+        }
+
+        function updateURLFilters() {
+            const urlParams = new URLSearchParams();
+            
+            if (currentFilters.search) urlParams.set('search', currentFilters.search);
+            if (currentFilters.category) urlParams.set('category', currentFilters.category);
+            if (currentFilters.price) urlParams.set('price', currentFilters.price);
+            if (currentFilters.sort !== 'newest') urlParams.set('sort', currentFilters.sort);
+            
+            const newUrl = `${window.location.pathname}${urlParams.toString() ? '?' + urlParams.toString() : ''}`;
+            window.history.replaceState({}, '', newUrl);
+        }
+
+        function clearAllFilters() {
+            elements.searchInput.value = '';
+            elements.categoryFilter.value = '';
+            elements.priceFilter.value = '';
+            elements.sortFilter.value = 'newest';
+            elements.clearFiltersBtn.classList.add('clear-filters-hidden');
+            
+            currentFilters = {
+                search: '',
+                category: '',
+                price: '',
+                sort: 'newest'
+            };
+            
+            applyFilters();
+            updateURLFilters();
+        }
+
+        // ====== PRODUCT DISPLAY ======
+        function displayProducts() {
+            elements.productsGrid.innerHTML = '';
+            
+            if (filteredProducts.length === 0) {
+                elements.emptyState.classList.remove('empty-state-hidden');
+                elements.productsGrid.classList.add('products-grid-hidden');
+                elements.pagination.classList.add('pagination-hidden');
+                return;
+            }
+            
+            elements.emptyState.classList.add('empty-state-hidden');
+            elements.productsGrid.classList.remove('products-grid-hidden');
+            
+            // Calculate pagination
+            const startIndex = (currentPage - 1) * productsPerPage;
+            const endIndex = startIndex + productsPerPage;
+            const paginatedProducts = filteredProducts.slice(startIndex, endIndex);
+            
+            paginatedProducts.forEach(product => {
+                const productCard = createProductCard(product);
+                elements.productsGrid.appendChild(productCard);
+            });
+        }
+
+        function createProductCard(product) {
+            const card = document.createElement('div');
+            card.className = 'product-card';
+            card.innerHTML = `
+                <img src="${product.image || 'https://placehold.co/400x300/e5e7eb/6b7280?text=Product+Image'}" 
+                     alt="${product.name}" 
+                     class="product-image"
+                     onclick="viewProductDetail('${product.id}')">
+                <div class="product-info">
+                    <h3 class="product-title product-title-link" onclick="viewProductDetail('${product.id}')">${product.name}</h3>
+                    <span class="category-badge">${getCategoryLabel(product.category)}</span>
+                    <div class="product-price">
+                        $${product.price.toFixed(2)}
+                        ${product.oldPrice ? `<span class="product-old-price">$${product.oldPrice.toFixed(2)}</span>` : ''}
+                    </div>
+                    <div class="product-vendor">By ${product.vendorName || 'Unknown'}</div>
+                    <div class="product-rating">
+                        <div class="stars">${generateStars(product.rating || 0)}</div>
+                        <span class="count">(${product.reviewCount || 0})</span>
+                    </div>
+                    <div class="product-stock ${getStockClass(product.stock)}">
+                        ${getStockText(product.stock)}
+                    </div>
+                    <div class="product-actions">
+                        <button class="btn btn-primary btn-small" onclick="addToCart('${product.id}', event)">
+                            Add to Cart
+                        </button>
+                        <button class="btn btn-secondary btn-small" onclick="viewProductDetail('${product.id}')">
+                            View Details
+                        </button>
+                    </div>
+                </div>
+            `;
+            return card;
+        }
+
+        function getCategoryLabel(category) {
+            const labels = {
+                'electronics': '📱 Electronics',
+                'fashion': '👔 Fashion',
+                'home': '🏠 Home',
+                'beauty': '💄 Beauty',
+                'sports': '⚽ Sports',
+                'books': '📚 Books',
+                'toys': '🧸 Toys',
+                'food': '🍎 Food'
+            };
+            return labels[category] || category || 'Uncategorized';
+        }
+
+        function generateStars(rating) {
+            const fullStars = Math.floor(rating);
+            const halfStar = rating % 1 >= 0.5;
+            let stars = '';
+            
+            for (let i = 1; i <= 5; i++) {
+                if (i <= fullStars) {
+                    stars += '★';
+                } else if (i === fullStars + 1 && halfStar) {
+                    stars += '½';
+                } else {
+                    stars += '☆';
+                }
+            }
+            return stars;
+        }
+
+        function getStockClass(stock) {
+            if (stock === undefined || stock === null) return '';
+            if (stock === 0) return 'out-of-stock';
+            if (stock <= 10) return 'low-stock';
+            return 'in-stock';
+        }
+
+        function getStockText(stock) {
+            if (stock === undefined || stock === null) return '';
+            if (stock === 0) return 'Out of stock';
+            if (stock <= 10) return `Only ${stock} left!`;
+            return 'In stock';
+        }
+
+        // ====== PAGINATION ======
+        function updatePagination() {
+            if (filteredProducts.length <= productsPerPage) {
+                elements.pagination.classList.add('pagination-hidden');
+                return;
+            }
+            
+            const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
+            
+            elements.pagination.classList.remove('pagination-hidden');
+            elements.prevBtn.disabled = currentPage === 1;
+            elements.nextBtn.disabled = currentPage === totalPages;
+            elements.pageInfo.textContent = `Page ${currentPage} of ${totalPages}`;
+        }
+
+        function goToPage(page) {
+            if (page < 1 || page > Math.ceil(filteredProducts.length / productsPerPage)) return;
+            
+            currentPage = page;
+            displayProducts();
+            updatePagination();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // ====== CART FUNCTIONS ======
+        function loadCartFromStorage() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            updateCartCount(cart);
+        }
+
+        function updateCartCount(cart) {
+            const count = cart ? cart.reduce((sum, item) => sum + item.quantity, 0) : 0;
+            elements.cartCount.textContent = count;
+        }
+
+        async function addToCart(productId, event) {
+            event.stopPropagation();
+            
+            const product = allProducts.find(p => p.id === productId);
+            if (!product) {
+                showAlert('Product not found', 'error');
+                return;
+            }
+            
+            if (product.stock === 0) {
+                showAlert('This product is out of stock', 'error');
+                return;
+            }
+            
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            
+            const existingItem = cart.find(item => item.id === productId);
+            
+            if (existingItem) {
+                if (existingItem.quantity >= (product.stock || 999)) {
+                    showAlert('Maximum stock reached', 'error');
+                    return;
+                }
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    id: productId,
+                    name: product.name,
+                    price: product.price,
+                    image: product.image,
+                    vendorId: product.vendorId,
+                    vendorName: product.vendorName,
+                    quantity: 1
+                });
+            }
+            
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartCount(cart);
+            
+            showAlert(`${product.name} added to cart!`, 'success');
+        }
+
+        // ====== NAVIGATION FUNCTIONS ======
+        function viewProductDetail(productId) {
+            window.location.href = `product-detail.html?id=${productId}`;
+        }
+
+        // ====== AUTH FUNCTIONS ======
+        function checkAuthState() {
+            auth.onAuthStateChanged(user => {
+                currentUser = user;
+                updateUserMenu(user);
+            });
+        }
+
+        function updateUserMenu(user) {
+            if (user) {
+                elements.userLoggedOut.classList.add('menu-section-hidden');
+                elements.userLoggedIn.classList.remove('menu-section-hidden');
+                elements.userEmail.textContent = user.email || 'User';
+            } else {
+                elements.userLoggedOut.classList.remove('menu-section-hidden');
+                elements.userLoggedIn.classList.add('menu-section-hidden');
+            }
+        }
+
+        async function logout() {
+            try {
+                await auth.signOut();
+                showAlert('Logged out successfully', 'success');
+                closeUserMenu();
+            } catch (error) {
+                console.error('Error logging out:', error);
+                showAlert('Failed to logout', 'error');
+            }
+        }
+
+        function openUserMenu() {
+            elements.userMenuModal.classList.add('modal-show');
+        }
+
+        function closeUserMenu() {
+            elements.userMenuModal.classList.remove('modal-show');
+        }
+
+        // ====== EVENT LISTENERS ======
+        function setupEventListeners() {
+            elements.searchBtn.addEventListener('click', () => {
+                currentFilters.search = elements.searchInput.value.trim();
+                currentPage = 1;
+                applyFilters();
+                
+                if (currentFilters.search || currentFilters.category || currentFilters.price) {
+                    elements.clearFiltersBtn.classList.remove('clear-filters-hidden');
+                }
+            });
+            
+            elements.searchInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    elements.searchBtn.click();
+                }
+            });
+            
+            elements.categoryFilter.addEventListener('change', () => {
+                currentFilters.category = elements.categoryFilter.value;
+                currentPage = 1;
+                applyFilters();
+                elements.clearFiltersBtn.classList.remove('clear-filters-hidden');
+            });
+            
+            elements.priceFilter.addEventListener('change', () => {
+                currentFilters.price = elements.priceFilter.value;
+                currentPage = 1;
+                applyFilters();
+                elements.clearFiltersBtn.classList.remove('clear-filters-hidden');
+            });
+            
+            elements.sortFilter.addEventListener('change', () => {
+                currentFilters.sort = elements.sortFilter.value;
+                currentPage = 1;
+                applyFilters();
+            });
+            
+            elements.clearFiltersBtn.addEventListener('click', clearAllFilters);
+            
+            elements.userMenuBtn.addEventListener('click', openUserMenu);
+            elements.closeModalBtn.addEventListener('click', closeUserMenu);
+            elements.logoutBtn.addEventListener('click', logout);
+            
+            window.addEventListener('click', (e) => {
+                if (e.target === elements.userMenuModal) {
+                    closeUserMenu();
+                }
+            });
+            
+            elements.prevBtn.addEventListener('click', () => goToPage(currentPage - 1));
+            elements.nextBtn.addEventListener('click', () => goToPage(currentPage + 1));
+        }
+
+        // ====== UTILITY FUNCTIONS ======
+        function showLoading(show) {
+            elements.loading.style.display = show ? 'block' : 'none';
+        }
+
+        function showError(message) {
+            elements.emptyState.innerHTML = `<p>${message}</p>`;
+            elements.emptyState.classList.remove('empty-state-hidden');
+            elements.productsGrid.classList.add('products-grid-hidden');
+        }
+
+        function showAlert(message, type = 'success') {
+            const alertDiv = document.createElement('div');
+            alertDiv.className = `alert alert-${type}`;
+            alertDiv.textContent = message;
+            alertDiv.classList.add('alert-fixed');
+            
+            document.body.appendChild(alertDiv);
+            
+            setTimeout(() => {
+                alertDiv.remove();
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

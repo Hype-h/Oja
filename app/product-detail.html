@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details - Oja Marketplace</title>
+    <link rel="icon" type="image/x-icon" href="public/favicon.ico">
+    <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="index.html">
+                    <img src="public/logo.jpg" alt="Oja Logo" class="nav-logo-img" onerror="this.src='https://placehold.co/200x60/f59e0b/ffffff?text=OJA+LOGO'">
+                </a>
+            </div>
+            <div class="nav-menu">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="products.html" class="nav-link">Products</a>
+                <a href="cart.html" class="nav-link">Cart <span id="cart-count" class="cart-badge">0</span></a>
+                <button id="user-menu-btn" class="nav-link">Account</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+        <a href="products.html">Products</a> / <span id="product-name-breadcrumb">Loading...</span>
+    </div>
+
+    <!-- Product Details -->
+    <div class="product-detail-container">
+        <div class="product-detail-content">
+            <!-- Product Images -->
+            <div class="product-images">
+                <img id="main-image" src="https://placehold.co/600x400/e5e7eb/6b7280?text=Loading+Product+Image" alt="Product Image" class="main-image">
+                <div id="thumbnail-container" class="thumbnails">
+                    <!-- Thumbnails will be generated here -->
+                </div>
+            </div>
+
+            <!-- Product Info -->
+            <div class="product-info">
+                <h1 id="product-title">Loading Product...</h1>
+                <div class="product-rating">
+                    <div id="rating-stars" class="stars">★★★★★</div>
+                    <span id="rating-count">(0 reviews)</span>
+                </div>
+
+                <div class="product-price">
+                    <span id="price" class="price">$0.00</span>
+                    <span id="old-price" class="old-price product-old-price-hidden"></span>
+                </div>
+
+                <div class="product-vendor">
+                    <p>Seller: <strong id="vendor-name">Loading...</strong></p>
+                </div>
+
+                <div class="product-meta">
+                    <p><strong>Category:</strong> <span id="category">Loading...</span></p>
+                    <p><strong>Stock:</strong> <span id="stock">Loading...</span></p>
+                    <p><strong>SKU:</strong> <span id="sku">Loading...</span></p>
+                </div>
+
+                <p id="description" class="product-description">Product description loading...</p>
+
+                <!-- Add to Cart Form -->
+                <div class="add-to-cart-form">
+                    <form id="cart-form" onsubmit="return false;">
+                        <div class="quantity-selector">
+                            <label for="quantity" class="sr-only">Quantity</label>
+                            <button type="button" id="qty-minus" class="qty-btn" aria-label="Decrease quantity">-</button>
+                            <input type="number" id="quantity" value="1" min="1" max="100" class="qty-input" aria-label="Product quantity">
+                            <button type="button" id="qty-plus" class="qty-btn" aria-label="Increase quantity">+</button>
+                        </div>
+                        <button type="button" id="add-to-cart-btn" class="btn btn-primary btn-large">Add to Cart</button>
+                        <button type="button" id="buy-now-btn" class="btn btn-secondary btn-large">Buy Now</button>
+                    </form>
+                </div>
+
+                <!-- Shipping Info -->
+                <div class="shipping-info">
+                    <h3>Shipping & Returns</h3>
+                    <p>Ships within 3-5 business days. Free returns within 30 days.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Reviews Section -->
+        <div class="reviews-section">
+            <h2>Customer Reviews</h2>
+            <div class="reviews-stats">
+                <div class="avg-rating">
+                    <div id="avg-rating-display" class="rating-value">0</div>
+                    <p>out of 5</p>
+                </div>
+                <div class="rating-bars">
+                    <div class="rating-bar">
+                        <span>5★</span>
+                        <div class="bar"><div id="bar-5" class="fill rating-bar-zero"></div></div>
+                    </div>
+                    <div class="rating-bar">
+                        <span>4★</span>
+                        <div class="bar"><div id="bar-4" class="fill rating-bar-zero"></div></div>
+                    </div>
+                    <div class="rating-bar">
+                        <span>3★</span>
+                        <div class="bar"><div id="bar-3" class="fill rating-bar-zero"></div></div>
+                    </div>
+                    <div class="rating-bar">
+                        <span>2★</span>
+                        <div class="bar"><div id="bar-2" class="fill rating-bar-zero"></div></div>
+                    </div>
+                    <div class="rating-bar">
+                        <span>1★</span>
+                        <div class="bar"><div id="bar-1" class="fill rating-bar-zero"></div></div>
+                    </div>
+                </div>
+            </div>
+
+            <button id="write-review-btn" class="btn btn-secondary review-button-margin">Write a Review</button>
+
+            <div id="reviews-list" class="reviews-list">
+                <div class="empty-state">No reviews yet. Be the first to review this product!</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Review Modal -->
+    <div id="review-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Write a Review</h2>
+            <form id="review-form">
+                <div class="form-group">
+                    <label for="star-rating">Rating</label>
+                    <div class="star-rating" id="star-rating" role="radiogroup" aria-label="Product rating">
+                        <span data-value="1" role="radio" aria-checked="false" tabindex="0">★</span>
+                        <span data-value="2" role="radio" aria-checked="false" tabindex="0">★</span>
+                        <span data-value="3" role="radio" aria-checked="false" tabindex="0">★</span>
+                        <span data-value="4" role="radio" aria-checked="false" tabindex="0">★</span>
+                        <span data-value="5" role="radio" aria-checked="false" tabindex="0">★</span>
+                    </div>
+                </div>
+                <input type="hidden" id="review-rating" value="0">
+                <div class="form-group">
+                    <label for="review-title">Title</label>
+                    <input type="text" id="review-title" required placeholder="Review title">
+                </div>
+                <div class="form-group">
+                    <label for="review-comment">Comment</label>
+                    <textarea id="review-comment" required placeholder="Share your thoughts..." rows="5"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit Review</button>
+            </form>
+        </div>
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-functions-compat.js"></script>
+    <script src="./js/firebase-config.js"></script>
+    <script src="./js/product-detail.js"></script>
+</body>
+</html>

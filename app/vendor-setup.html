@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Vendor Setup | Oja Marketplace</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="icon" href="./public/favicon.ico" />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+
+<body>
+
+<div class="vendor-setup-wrapper">
+  
+  <!-- Progress Bar -->
+  <div class="setup-progress-bar">
+    <div class="setup-progress-fill"></div>
+  </div>
+
+  <div class="setup-container">
+
+    <!-- Header -->
+    <div class="setup-header">
+      <div class="setup-header-content">
+        <h1>Complete Your Vendor Profile</h1>
+        <p>Finish setting up your store to start selling on Oja Marketplace</p>
+      </div>
+      
+      <!-- Step Indicators -->
+      <div class="steps-indicator">
+        <div class="step active">
+          <div class="step-number">1</div>
+          <span>Business Info</span>
+        </div>
+        <div class="step">
+          <div class="step-number">2</div>
+          <span>Verification</span>
+        </div>
+        <div class="step">
+          <div class="step-number">3</div>
+          <span>Complete</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Body -->
+    <div class="setup-body">
+
+      <!-- Alert Messages -->
+      <div id="alertSuccess" class="setup-alert setup-alert-success"></div>
+      <div id="alertError" class="setup-alert setup-alert-error"></div>
+
+      <form id="vendorSetupForm" class="vendor-setup-form">
+
+        <!-- BUSINESS INFORMATION -->
+        <div class="setup-section">
+          <div class="setup-section-header">
+            <div class="setup-section-icon">🏪</div>
+            <div>
+              <h2>Business Information</h2>
+              <p class="setup-section-desc">Tell us about your business</p>
+            </div>
+          </div>
+
+          <div class="setup-grid">
+            <div class="setup-form-group">
+              <label>Business Name <span class="required">*</span></label>
+              <input type="text" id="businessName" placeholder="Enter your business name" required />
+            </div>
+
+            <div class="setup-form-group">
+              <label>Business Category <span class="required">*</span></label>
+              <select id="category" required>
+                <option value="">Select category</option>
+                <option value="Fashion">Fashion & Clothing</option>
+                <option value="Electronics">Electronics & Gadgets</option>
+                <option value="Groceries">Groceries & Food</option>
+                <option value="Home & Living">Home & Living</option>
+                <option value="Beauty">Beauty & Personal Care</option>
+                <option value="Sports">Sports & Fitness</option>
+                <option value="Books">Books & Media</option>
+                <option value="Services">Services</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+
+            <div class="setup-form-group">
+              <label>Business Email <span class="required">*</span></label>
+              <input type="email" id="businessEmail" placeholder="business@example.com" required />
+            </div>
+
+            <div class="setup-form-group">
+              <label>Phone Number <span class="required">*</span></label>
+              <input type="tel" id="phone" placeholder="+234 800 000 0000" required />
+            </div>
+          </div>
+
+          <div class="setup-form-group">
+            <label>Business Description</label>
+            <textarea id="description" placeholder="Tell customers about your business, what you sell, and what makes you unique..." rows="4"></textarea>
+          </div>
+        </div>
+
+        <!-- BUSINESS ADDRESS -->
+        <div class="setup-section">
+          <div class="setup-section-header">
+            <div class="setup-section-icon">📍</div>
+            <div>
+              <h2>Business Address</h2>
+              <p class="setup-section-desc">Where is your business located?</p>
+            </div>
+          </div>
+
+          <div class="setup-form-group">
+            <label>Full Business Address <span class="required">*</span></label>
+            <textarea id="address" placeholder="Street address, City, State, Country" rows="3" required></textarea>
+          </div>
+
+          <div class="setup-grid setup-grid-3">
+            <div class="setup-form-group">
+              <label>City <span class="required">*</span></label>
+              <input type="text" id="city" placeholder="e.g., Lagos" required />
+            </div>
+
+            <div class="setup-form-group">
+              <label>State/Region <span class="required">*</span></label>
+              <input type="text" id="state" placeholder="e.g., Lagos" required />
+            </div>
+
+            <div class="setup-form-group">
+              <label>Postal Code</label>
+              <input type="text" id="postalCode" placeholder="100001" />
+            </div>
+          </div>
+        </div>
+
+        <!-- KYC VERIFICATION -->
+        <div class="setup-section">
+          <div class="setup-section-header">
+            <div class="setup-section-icon">🛡️</div>
+            <div>
+              <h2>KYC Verification</h2>
+              <p class="setup-section-desc">Verify your identity to receive payments</p>
+            </div>
+          </div>
+
+          <div class="setup-grid">
+            <div class="setup-form-group">
+              <label>ID Type <span class="required">*</span></label>
+              <select id="idType" required>
+                <option value="">Select ID type</option>
+                <option value="National ID">National ID Card</option>
+                <option value="Driver's License">Driver's License</option>
+                <option value="International Passport">International Passport</option>
+                <option value="Voter's Card">Voter's Card</option>
+              </select>
+            </div>
+
+            <div class="setup-form-group">
+              <label>ID Number <span class="required">*</span></label>
+              <input type="text" id="idNumber" placeholder="Enter your ID number" required />
+            </div>
+          </div>
+
+          <!-- ID Image Upload -->
+          <div class="setup-form-group">
+            <label>Upload ID Image <span class="required">*</span></label>
+            <div class="setup-upload-area" id="idUploadArea">
+              <input type="file" id="idImageInput" class="setup-file-input" accept="image/*" required />
+              <div class="setup-upload-content">
+                <div class="setup-upload-icon">📄</div>
+                <h3>Click to upload or drag and drop</h3>
+                <p>PNG, JPG or JPEG (max. 5MB)</p>
+                <p class="setup-upload-note">Please ensure your ID is clear and all details are visible</p>
+              </div>
+            </div>
+
+            <!-- Preview Container -->
+            <div id="idPreviewContainer" class="setup-preview-container">
+              <img id="idPreviewImage" class="setup-preview-image" alt="ID Preview" />
+              <div class="setup-file-info">
+                <span id="fileName" class="setup-file-name"></span>
+                <button type="button" id="removeIdBtn" class="setup-remove-file">✕ Remove</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="setup-info-box">
+            <div class="setup-info-icon">ℹ️</div>
+            <div>
+              <strong>Important:</strong> KYC approval is required before you can receive payouts. Your information is securely stored and will only be used for verification purposes.
+            </div>
+          </div>
+        </div>
+
+        <!-- BANK INFORMATION (Optional) -->
+        <div class="setup-section">
+          <div class="setup-section-header">
+            <div class="setup-section-icon">🏦</div>
+            <div>
+              <h2>Bank Information</h2>
+              <p class="setup-section-desc">Add your bank details for payouts (optional, can be added later)</p>
+            </div>
+          </div>
+
+          <div class="setup-grid">
+            <div class="setup-form-group">
+              <label>Bank Name</label>
+              <select id="bankName">
+                <option value="">Select bank</option>
+                <option value="Access Bank">Access Bank</option>
+                <option value="GTBank">Guaranty Trust Bank</option>
+                <option value="First Bank">First Bank of Nigeria</option>
+                <option value="UBA">United Bank for Africa</option>
+                <option value="Zenith Bank">Zenith Bank</option>
+                <option value="Ecobank">Ecobank Nigeria</option>
+                <option value="Fidelity Bank">Fidelity Bank</option>
+                <option value="FCMB">First City Monument Bank</option>
+                <option value="Stanbic IBTC">Stanbic IBTC Bank</option>
+                <option value="Sterling Bank">Sterling Bank</option>
+                <option value="Union Bank">Union Bank of Nigeria</option>
+                <option value="Wema Bank">Wema Bank</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+
+            <div class="setup-form-group">
+              <label>Account Number</label>
+              <input type="text" id="accountNumber" placeholder="0000000000" maxlength="10" />
+            </div>
+
+            <div class="setup-form-group">
+              <label>Account Name</label>
+              <input type="text" id="accountName" placeholder="As it appears on your account" />
+            </div>
+          </div>
+        </div>
+
+        <!-- FOOTER ACTIONS -->
+        <div class="setup-footer-actions">
+          <div class="setup-footer-note">
+            <span class="setup-note-icon">💡</span>
+            <span>You can update these details later in your vendor settings</span>
+          </div>
+          <div class="setup-button-group">
+            <button type="button" class="setup-btn setup-btn-secondary" onclick="window.location.href='./vendor-dashboard.html'">
+              Save as Draft
+            </button>
+            <button type="submit" class="setup-btn setup-btn-primary">
+              Complete Setup →
+            </button>
+          </div>
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+</div>
+
+<!-- FIREBASE -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-storage-compat.js"></script>
+
+<script>
+  // Firebase Configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyALSSw0-d0F2-Zkj5aXVN1ip7FcMCouy8Q",
+    authDomain: "oja-place01.firebaseapp.com",
+    projectId: "oja-place01",
+    storageBucket: "oja-place01.firebasestorage.app",
+    messagingSenderId: "543711721814",
+    appId: "1:543711721814:web:6fafe8a7cf1db4b3493ef7"
+  };
+
+  firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+  const db = firebase.firestore();
+  const storage = firebase.storage();
+
+  // Elements
+  const successAlert = document.getElementById("alertSuccess");
+  const errorAlert = document.getElementById("alertError");
+  const idUploadArea = document.getElementById("idUploadArea");
+  const idImageInput = document.getElementById("idImageInput");
+  const idPreviewContainer = document.getElementById("idPreviewContainer");
+  const idPreviewImage = document.getElementById("idPreviewImage");
+  const fileNameSpan = document.getElementById("fileName");
+  const removeIdBtn = document.getElementById("removeIdBtn");
+  const progressFill = document.querySelector(".setup-progress-fill");
+
+  let selectedIdImage = null;
+
+  // Show alert function
+  function showAlert(element, message) {
+    element.textContent = message;
+    element.style.display = "block";
+    setTimeout(() => element.style.display = "none", 5000);
+  }
+
+  // Update progress bar
+  function updateProgress(percent) {
+    progressFill.style.width = percent + "%";
+  }
+
+  // Auth state check
+  auth.onAuthStateChanged(async user => {
+    if (!user) {
+      location.href = "vendor-auth.html";
+    }
+  });
+
+  // File upload handling
+  idUploadArea.addEventListener("click", () => idImageInput.click());
+
+  idUploadArea.addEventListener("dragover", (e) => {
+    e.preventDefault();
+    idUploadArea.classList.add("dragover");
+  });
+
+  idUploadArea.addEventListener("dragleave", () => {
+    idUploadArea.classList.remove("dragover");
+  });
+
+  idUploadArea.addEventListener("drop", (e) => {
+    e.preventDefault();
+    idUploadArea.classList.remove("dragover");
+    const files = e.dataTransfer.files;
+    if (files.length > 0) {
+      handleIdImage(files[0]);
+    }
+  });
+
+  idImageInput.addEventListener("change", (e) => {
+    if (e.target.files.length > 0) {
+      handleIdImage(e.target.files[0]);
+    }
+  });
+
+  function handleIdImage(file) {
+    // Validate file type
+    if (!file.type.startsWith("image/")) {
+      showAlert(errorAlert, "Please upload a valid image file");
+      return;
+    }
+
+    // Validate file size (5MB)
+    if (file.size > 5 * 1024 * 1024) {
+      showAlert(errorAlert, "Image size should be less than 5MB");
+      return;
+    }
+
+    selectedIdImage = file;
+
+    // Show preview
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      idPreviewImage.src = e.target.result;
+      fileNameSpan.textContent = file.name;
+      idPreviewContainer.classList.add("active");
+      idUploadArea.style.display = "none";
+    };
+    reader.readAsDataURL(file);
+  }
+
+  removeIdBtn.addEventListener("click", () => {
+    selectedIdImage = null;
+    idImageInput.value = "";
+    idPreviewContainer.classList.remove("active");
+    idUploadArea.style.display = "block";
+  });
+
+  // Form submission
+  document.getElementById("vendorSetupForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const user = auth.currentUser;
+    if (!user) return;
+
+    // Validate ID image
+    if (!selectedIdImage) {
+      showAlert(errorAlert, "Please upload your ID image");
+      return;
+    }
+
+    const submitBtn = e.target.querySelector('button[type="submit"]');
+    const originalText = submitBtn.textContent;
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Processing...";
+
+    try {
+      updateProgress(30);
+
+      // Upload ID image to Firebase Storage
+      const idImageRef = storage.ref(`vendors/${user.uid}/id-verification/${selectedIdImage.name}`);
+      const uploadTask = idImageRef.put(selectedIdImage);
+
+      uploadTask.on("state_changed",
+        (snapshot) => {
+          const progress = 30 + (snapshot.bytesTransferred / snapshot.totalBytes) * 40;
+          updateProgress(progress);
+        },
+        (error) => {
+          throw new Error("Failed to upload ID image: " + error.message);
+        }
+      );
+
+      await uploadTask;
+      const idImageUrl = await idImageRef.getDownloadURL();
+
+      updateProgress(70);
+
+      // Prepare vendor data
+      const vendorData = {
+        businessName: document.getElementById("businessName").value.trim(),
+        category: document.getElementById("category").value,
+        businessEmail: document.getElementById("businessEmail").value.trim(),
+        phone: document.getElementById("phone").value.trim(),
+        description: document.getElementById("description").value.trim(),
+        address: {
+          full: document.getElementById("address").value.trim(),
+          city: document.getElementById("city").value.trim(),
+          state: document.getElementById("state").value.trim(),
+          postalCode: document.getElementById("postalCode").value.trim()
+        },
+        kyc: {
+          type: document.getElementById("idType").value,
+          number: document.getElementById("idNumber").value.trim(),
+          idImageUrl: idImageUrl,
+          status: "pending",
+          submittedAt: firebase.firestore.FieldValue.serverTimestamp()
+        },
+        profileComplete: true,
+        updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+      };
+
+      // Add bank info if provided
+      const bankName = document.getElementById("bankName").value;
+      if (bankName) {
+        vendorData.bankInfo = {
+          bankName: bankName,
+          accountNumber: document.getElementById("accountNumber").value.trim(),
+          accountName: document.getElementById("accountName").value.trim()
+        };
+      }
+
+      updateProgress(85);
+
+      // Update Firestore
+      await db.collection("vendors").doc(user.uid).update(vendorData);
+
+      updateProgress(100);
+
+      showAlert(successAlert, "Profile completed successfully! Redirecting to dashboard...");
+      
+      setTimeout(() => {
+        location.href = "./vendor-dashboard.html";
+      }, 1500);
+
+    } catch (err) {
+      console.error("Setup error:", err);
+      showAlert(errorAlert, err.message || "Failed to complete setup. Please try again.");
+      submitBtn.disabled = false;
+      submitBtn.textContent = originalText;
+      updateProgress(0);
+    }
+  });
+
+  // Form auto-save to draft (optional enhancement)
+  let autoSaveTimeout;
+  document.querySelectorAll("input, select, textarea").forEach(field => {
+    field.addEventListener("input", () => {
+      clearTimeout(autoSaveTimeout);
+      autoSaveTimeout = setTimeout(() => {
+        // Auto-save draft logic here if needed
+        console.log("Auto-saving draft...");
+      }, 2000);
+    });
+  });
+</script>
+
+</body>
+</html>
